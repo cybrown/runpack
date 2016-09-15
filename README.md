@@ -86,5 +86,5 @@ runpack <command> --help
  * Generate tests reports for CI tools
  * Generate code coverage
  * Create zip ou tar.gz archives
- * Works with any framework installable via npm, such as angular.js, angular2 ou react
+ * Works with any framework installable via npm, such as angular.js, angular2 or react
  * Uses hashes for cache-busting

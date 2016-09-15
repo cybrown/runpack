@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha -t 10s"
   },
+  "repository": "cybrown/runpack",
   "author": "Cy Brown",
   "license": "ISC",
   "dependencies": {

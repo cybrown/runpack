@@ -53,3 +53,6 @@ Run tests with mocha and generate a coverage report:
 ```
 $ runpack test --coverage
 ```
+
+## Special Thanks
+@flovy

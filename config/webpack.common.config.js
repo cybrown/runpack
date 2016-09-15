@@ -1,33 +1,25 @@
 var fs = require('fs');
 var path = require('path');
-var _ = require('lodash');
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var precss = require('precss');
 var autoprefixer = require('autoprefixer');
 
-var webpackHtmlOptions = {};
+var findCurrentPackageInfo = require('../lib/util/find-current-package-info');
+var findMainScriptFile = require('../lib/util/find-main-script-file');
 
-if (fs.existsSync(process.cwd() + '/index.html')) {
-    webpackHtmlOptions.template = process.cwd() + '/index.html';
-}
-
-var indexFileNames = ['index', 'main'];
 var extensions = ['.ts', '.tsx', '.js', '.jsx'];
-
-const mainScriptFile = _.flatMap(indexFileNames, function(name) {
-    return extensions.map(function (extension) {
-        return name + extension;
-    });
-}).map(function (fileName) {
-    return path.resolve(process.cwd(), fileName);
-}).filter(function (filePath) {
-    return fs.existsSync(filePath);
-})[0];
-
+var currentPackageInfo = findCurrentPackageInfo();
+var mainScriptFile = findMainScriptFile(currentPackageInfo, extensions);
 if (!mainScriptFile) {
     throw new Error('No main javascript file defined');
+}
+var possibleIndexHtmlPath = path.resolve(path.dirname(mainScriptFile), 'index.html');
+
+var webpackHtmlOptions = {};
+if (fs.existsSync(possibleIndexHtmlPath)) {
+    webpackHtmlOptions.template = possibleIndexHtmlPath;
 }
 
 module.exports = {

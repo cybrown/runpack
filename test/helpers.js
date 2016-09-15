@@ -60,6 +60,12 @@ function startServer(projectName, args) {
                     resolve();
                 }
             });
+            childWebpackServerProcess.stderr.on('data', function (data) {
+                console.error(data.toString('utf8'))
+            });
+            childWebpackServerProcess.stderr.on('close', function (data) {
+                reject(new Error('Process unexpectedly terminated'));
+            });
         });
     }
 }
@@ -71,6 +77,8 @@ function stopServer() {
             childWebpackServerProcess.on('close', resolve);
             childWebpackServerProcess.on('error', reject);
             childWebpackServerProcess = null;
+        } else {
+            reject(new Error('Process not started'));
         }
     });
 }

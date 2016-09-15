@@ -73,4 +73,29 @@ describe ('server with dev files', function () {
                 });
         });
     });
+
+    describe ('tests on project-with-package.json', function () {
+
+        before(startServer('project-with-package.json'));
+
+        after(stopServer);
+
+        var hash = null;
+
+        it ('should serve index.html', function () {
+            return assertResource('/')
+                .then(function (body) {
+                    expect(body).match(/^<!DOCTYPE html>/);
+                    expect(body).match(/<title>App with package\.json<\/title>/);
+                    hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
+                });
+        });
+
+        it ('should serve bundle.js', function () {
+            return assertResource('/bundle.' + hash + '.js')
+                .then(body => {
+                    expect(body).match(/console\.log\('index'\)/);
+                });
+        });
+    });
 });

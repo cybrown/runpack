@@ -41,6 +41,30 @@ function assertStyleCssBodyMinified(body) {
     expect(body).match(/background-color:red/);
 }
 
+function runCli(binPath, args) {
+    return new Promise(function (resolve, reject) {
+        var hadError = false;
+        var childWebpackServerProcess = spawn('node', [binPath].concat(args));
+        childWebpackServerProcess.stdout.on('data', function (data) {
+            if (/webpack: bundle is now VALID\./.test(data.toString('utf-8'))) {
+                resolve();
+            }
+        });
+        childWebpackServerProcess.on('error', function (err) {
+            hadError = true;
+            reject(err);
+        });
+        childWebpackServerProcess.stderr.on('data', function (data) {
+            console.error(data.toString('utf8'))
+        });
+        childWebpackServerProcess.stderr.on('close', function (data) {
+            if (!hadError) {
+                resolve();
+            }
+        });
+    });
+}
+
 var childWebpackServerProcess = null;
 
 function startServer(projectName, args) {
@@ -151,5 +175,6 @@ module.exports = {
     assertFileNonExistant: assertFileNonExistant,
     runPackage: runPackage,
     assertBundleJsBodyMinified: assertBundleJsBodyMinified,
-    assertStyleCssBodyMinified: assertStyleCssBodyMinified
+    assertStyleCssBodyMinified: assertStyleCssBodyMinified,
+    runCli: runCli
 };

@@ -6,8 +6,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var precss = require('precss');
 var autoprefixer = require('autoprefixer');
 
-var findCurrentPackageInfo = require('../lib/util/find-current-package-info');
-var findMainScriptFile = require('../lib/util/find-main-script-file');
+var findCurrentPackageInfo = require('./lib/find-current-package-info');
+var findMainScriptFile = require('./lib/find-main-script-file');
 
 var extensions = ['.ts', '.tsx', '.js', '.jsx'];
 var currentPackageInfo = findCurrentPackageInfo();

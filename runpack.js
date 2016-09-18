@@ -68,6 +68,12 @@ commander
     .description('Remove build files')
     .action(commandWrapper('clean'));
 
+commander
+    .command('eject')
+    .description('Write configuration files in your project')
+    .option('--skip-npm-install', 'Do not install npm dependencies')
+    .action(commandWrapper('eject'));
+
 commander.parse(process.argv);
 
 if (!process.argv.slice(2).length || !commandCalled) {

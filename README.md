@@ -56,6 +56,11 @@ Run tests with mocha and generate a coverage report:
 runpack test --coverage
 ```
 
+Dump build scripts, generate npm commands and install dev depenencies (may be irreversible !):
+```
+runpack eject
+```
+
 Get help:
 ```
 runpack --help
@@ -74,6 +79,7 @@ runpack <command> --help
 ## Features
 
  * No boilerplate generation
+ * No lock-in with the "eject" command
  * No configuration generation
  * No complicated conventions (having one main script file is enough)
  * Developpment server

@@ -1,6 +1,13 @@
 var packageInfo = require('./package.json');
 var commander = require('commander');
 var winston = require('winston');
+var updateNotifier = require('update-notifier');
+
+var notifier = updateNotifier({
+    pkg: packageInfo,
+    updateCheckInterval: 1000 * 60 * 60
+});
+notifier.notify();
 
 var commandCalled = false;
 

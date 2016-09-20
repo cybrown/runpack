@@ -31,6 +31,11 @@ Run the developpment server (default port is already 3000):
 runpack server --port 3000
 ```
 
+Run the developpment server with a backend server:
+```
+runpack server --proxy http://localhost:8080
+```
+
 Build production files in /dist:
 ```
 runpack build
@@ -95,3 +100,4 @@ runpack <command> --help
  * Works with any framework installable via npm, such as angular.js, angular2 or react
  * Uses hashes for cache-busting
  * History API fallback enabled by default
+ * Proxy unresolved requests to a backend server

@@ -6,6 +6,7 @@ var assertStyleCssBody = require('./helpers').assertStyleCssBody;
 var startServer = require('./helpers').startServer;
 var stopServer = require('./helpers').stopServer;
 var expect = require('chai').expect;
+var http = require('http');
 
 describe ('server with dev files', function () {
 
@@ -13,6 +14,34 @@ describe ('server with dev files', function () {
 
     beforeEach(function () {
         process.chdir(originalCwd);
+    });
+
+    describe ('tests on project1 with proxy', function () {
+
+        before(startServer('project1', ['--proxy', 'http://localhost:8080']));
+
+        after(stopServer);
+
+        it ('should proxy to a backend api', function (done) {
+            var backendResponseBody = 'response from backend';
+            var server = http.createServer(function (req, res) {
+                res.end(backendResponseBody);
+            }).listen(8080, function (err) {
+                if (err) return done(err);
+                assertResource('/backend/route').then(function (body) {
+                    expect(body).to.equal(backendResponseBody);
+                    server.close();
+                    done();
+                }).catch(function (err) {
+                    server.close();
+                    done(err);
+                });
+            });
+            server.on('error', function (err) {
+                done(err);
+                server.close();
+            });
+        });
     });
 
     describe ('tests on project1', function () {

@@ -56,5 +56,9 @@ module.exports = {
     },
     postcss: function () {
         return [precss, autoprefixer];
+    },
+    devServer: {
+        port: 3000,
+        historyApiFallback: true
     }
 };

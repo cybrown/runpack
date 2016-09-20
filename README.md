@@ -94,3 +94,4 @@ runpack <command> --help
  * Create zip ou tar.gz archives
  * Works with any framework installable via npm, such as angular.js, angular2 or react
  * Uses hashes for cache-busting
+ * History API fallback enabled by default

@@ -1,4 +1,5 @@
 var assertResource = require('./helpers').assertResource;
+var assertHtmlResource = require('./helpers').assertHtmlResource;
 var assertIndexHtmlBody = require('./helpers').assertIndexHtmlBody;
 var assertBundleJsBody = require('./helpers').assertBundleJsBody;
 var assertStyleCssBody = require('./helpers').assertStyleCssBody;
@@ -24,6 +25,15 @@ describe ('server with dev files', function () {
 
         it ('should serve index.html', function () {
             return assertResource('/')
+                .then(function (body) {
+                    hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
+                    return body;
+                })
+                .then(assertIndexHtmlBody);
+        });
+
+        it ('should serve index.html from another route', function () {
+            return assertHtmlResource('/other/route')
                 .then(function (body) {
                     hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
                     return body;

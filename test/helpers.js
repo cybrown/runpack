@@ -5,9 +5,24 @@ var Promise = require('es6-promise-polyfill').Promise;
 var path = require('path');
 var fs = require('fs');
 
+function assertHtmlResource(path, statusCode) {
+    return assertResourceInternal({
+        url: 'http://localhost:3000' + path,
+        headers: {
+            'Accept': 'text/html'
+        }
+    }, statusCode);
+}
+
 function assertResource(path, statusCode) {
+    return assertResourceInternal({
+        url: 'http://localhost:3000' + path,
+    }, statusCode);
+}
+
+function assertResourceInternal(options, statusCode) {
     return new Promise(function (resolve, reject) {
-        request('http://localhost:3000' + path, function (err, response, body) {
+        request(options, function (err, response, body) {
             expect(err).to.be.null;
             expect(response.statusCode).to.equal(statusCode || 200);
             resolve(body);
@@ -165,6 +180,7 @@ function assertFileNonExistant(filePath) {
 
 module.exports = {
     assertResource: assertResource,
+    assertHtmlResource: assertHtmlResource,
     assertIndexHtmlBody: assertIndexHtmlBody,
     assertBundleJsBody: assertBundleJsBody,
     assertStyleCssBody: assertStyleCssBody,

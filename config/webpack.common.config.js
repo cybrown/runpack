@@ -37,6 +37,8 @@ module.exports = {
             { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel', query: { presets: [require.resolve('babel-preset-react'), require.resolve('babel-preset-es2015'), require.resolve('babel-preset-es2016')] } },
             { test: /\.tsx?$/, loader: 'ts' },
             { test: /\.css$/, loader: ExtractTextPlugin.extract('style', 'css!postcss') },
+            { test: /\.sass$/, loader: ExtractTextPlugin.extract('style', 'css!postcss!sass') },
+            { test: /\.scss$/, loader: ExtractTextPlugin.extract('style', 'css!postcss!sass') },
             { test: /\.less$/, loader: ExtractTextPlugin.extract('style', 'css!postcss!less') },
             { test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
             { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },

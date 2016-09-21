@@ -1,7 +1,7 @@
 {
   "name": "runpack",
   "version": "0.2.0",
-  "description": "",
+  "description": "A ready to run, zero configuration webpack and webpack-dev-server build tool, without project generation",
   "main": "index.js",
   "scripts": {
     "test": "mocha -t 10s"

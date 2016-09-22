@@ -3,7 +3,7 @@
 
 A ready to run, zero configuration webpack and webpack-dev-server build tool, without project generation.
 
-Babel with ES2016, JSX, TypeScript, LESSCSS and autoprefixer are supported by default.
+Babel with ES2016, JSX, TypeScript, Sass, Less and autoprefixer are supported by default.
 
 Included: dev server, unit tests, coverage, and more ! (see features)
 
@@ -12,7 +12,7 @@ Included: dev server, unit tests, coverage, and more ! (see features)
 ```
 npm i -g runpack
 ```
-You may also use it as a dev dependency.
+You may also use it as a dev dependency.²
 
 ## Project initialisation
 
@@ -22,7 +22,15 @@ A package.json is not necessary, but if present and the main field is an existin
 
 An index.html file is not mandatory, but if one is found next to the main file, it will be used.
 
-To use a css file (or less), simply include it with require or import, in your main javascript file.
+To use a css file (or sass/scss/less), simply include it with require or import, in your main javascript file:
+
+```
+// ES5:
+require('./path/to/file.css');
+
+// ES6 or TypeScript:
+import './path/to/file.css';
+```
 
 ## Usage
 
@@ -90,6 +98,7 @@ runpack <command> --help
  * Developpment server
  * ES2016 (and JSX) with Babel
  * TypeScript
+ * CSS preprocessors (Sass and Less)
  * Autoprefixer
  * Optimize images
  * Create production files

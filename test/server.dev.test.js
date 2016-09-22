@@ -137,4 +137,36 @@ describe ('server with dev files', function () {
                 });
         });
     });
+
+    describe ('tests on project-with-sass', function () {
+
+        before(startServer('project-with-sass'));
+
+        after(stopServer);
+
+        var hash = null;
+
+        it ('should serve index.html', function () {
+            return assertResource('/')
+                .then(function (body) {
+                    expect(body).match(/^<!DOCTYPE html>/);
+                    hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
+                });
+        });
+
+        it ('should serve style.css', function () {
+            return assertResource('/style.' + hash + '.css')
+                .then(function (body) {
+                    expect(body).match(/body h1 {/);
+                    expect(body).match(/background-color: red;/);
+                    expect(body).match(/body h2 {/);
+                    expect(body).match(/background-color: blue;/);
+                    expect(body).match(/\/\*# sourceMappingURL=style\.[a-f0-9]{20}\.css\.map\*\//);
+                });
+        });
+
+        it ('should serve style.css.map', function () {
+            return assertResource('/style.' + hash + '.css.map');
+        });
+    });
 });

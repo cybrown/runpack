@@ -1,7 +1,7 @@
 # runpack
 [![Build Status](https://travis-ci.org/cybrown/runpack.svg?branch=master)](https://travis-ci.org/cybrown/runpack)
 
-A ready to run, zero configuration webpack and webpack-dev-server build tool, without project generation.
+A ready to run, framework agnostic, zero configuration webpack and webpack-dev-server build tool, without project generation.
 
 Babel with ES2016, JSX, TypeScript, Sass, Less and autoprefixer are supported by default.
 

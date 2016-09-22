@@ -59,6 +59,11 @@ Run tests with mocha:
 runpack test
 ```
 
+Run tests and watch files:
+```
+runpack test --watch
+```
+
 Run tests with mocha and generate test reports:
 ```
 runpack test --test-report
@@ -103,6 +108,7 @@ runpack <command> --help
  * Optimize images
  * Create production files
  * Run tests with karma and mocha
+ * Watch mode for tests
  * Generate tests reports for CI tools
  * Generate code coverage
  * Create zip ou tar.gz archives

@@ -69,6 +69,7 @@ commander
     .description('Run unit tests')
     .option('-c --coverage', 'Enable coverage')
     .option('-r --test-report', 'Output a test result report')
+    .option('-w --watch', 'Watch for changes and rerun tests')
     .action(commandWrapper('test'));
 
 commander

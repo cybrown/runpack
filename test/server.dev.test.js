@@ -172,7 +172,7 @@ describe ('server with dev files', function () {
 
     describe ('Interpolation', function () {
 
-        before(startServer('Interpolation'));
+        before(startServer('interpolation'));
 
         after(stopServer);
 

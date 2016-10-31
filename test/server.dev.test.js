@@ -169,4 +169,28 @@ describe ('server with dev files', function () {
             return assertResource('/style.' + hash + '.css.map');
         });
     });
+
+    describe ('Interpolation', function () {
+
+        before(startServer('Interpolation'));
+
+        after(stopServer);
+
+        var hash = null;
+
+        it ('should serve index.html', function () {
+            return assertResource('/')
+                .then(function (body) {
+                    expect(body).match(/^<!DOCTYPE html>/);
+                    hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
+                });
+        });
+
+        it ('should include another html template', function () {
+            return assertResource('/bundle.' + hash + '.js')
+                .then(body => {
+                    expect(body).match(/"<div>" \+ __webpack_require__\(2\) \+ "<\/div>"/);
+                });
+        });
+    });
 });

@@ -1,5 +1,5 @@
 var assertResource = require('./helpers').assertResource;
-var assertIndexHtmlBody = require('./helpers').assertIndexHtmlBody;
+var assertIndexHtmlBodyMinified = require('./helpers').assertIndexHtmlBodyMinified;
 var assertBundleJsBodyMinified = require('./helpers').assertBundleJsBodyMinified;
 var assertStyleCssBodyMinified = require('./helpers').assertStyleCssBodyMinified;
 var startServer = require('./helpers').startServer;
@@ -28,7 +28,7 @@ describe ('server with production files', function () {
                     hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
                     return body;
                 })
-                .then(assertIndexHtmlBody);
+                .then(assertIndexHtmlBodyMinified);
         });
 
         it ('should serve bundle.js', function () {

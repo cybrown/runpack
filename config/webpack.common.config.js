@@ -25,7 +25,7 @@ if (fs.existsSync(possibleIndexHtmlPath)) {
 module.exports = {
     entry: mainScriptFile,
     output: {
-        filename: 'bundle.[hash].js'
+        filename: 'bundle.js'
     },
     resolve: {
         extensions: [''].concat(extensions)
@@ -49,7 +49,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('style.[hash].css', {
+        new ExtractTextPlugin('style.css', {
             allChunks: true
         }),
         new HtmlWebpackPlugin(webpackHtmlOptions)

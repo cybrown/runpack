@@ -1,5 +1,5 @@
 var assertFile = require('./helpers').assertFile;
-var assertIndexHtmlBody = require('./helpers').assertIndexHtmlBody;
+var assertIndexHtmlBodyMinified = require('./helpers').assertIndexHtmlBodyMinified;
 var assertBundleJsBodyMinified = require('./helpers').assertBundleJsBodyMinified;
 var assertStyleCssBodyMinified = require('./helpers').assertStyleCssBodyMinified;
 var runPackage = require('./helpers').runPackage;
@@ -61,7 +61,7 @@ describe ('package zip with production files', function () {
         });
 
         it ('should archive index.html', function () {
-            assertIndexHtmlBody(indexHtmlContent);
+            assertIndexHtmlBodyMinified(indexHtmlContent);
         });
 
         it ('should archive bundle.js', function () {

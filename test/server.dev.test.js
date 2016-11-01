@@ -50,12 +50,10 @@ describe ('server with dev files', function () {
 
         after(stopServer);
 
-        var hash = null;
-
         it ('should serve index.html', function () {
             return assertResource('/')
                 .then(function (body) {
-                    hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
+                    body.match(/bundle\.js/)[1];
                     return body;
                 })
                 .then(assertIndexHtmlBody);
@@ -64,28 +62,28 @@ describe ('server with dev files', function () {
         it ('should serve index.html from another route', function () {
             return assertHtmlResource('/other/route')
                 .then(function (body) {
-                    hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
+                    body.match(/bundle\.js/)[1];
                     return body;
                 })
                 .then(assertIndexHtmlBody);
         });
 
         it ('should serve bundle.js', function () {
-            return assertResource('/bundle.' + hash + '.js')
+            return assertResource('/bundle.js')
                 .then(assertBundleJsBody);
         });
 
         it ('should serve style.css', function () {
-            return assertResource('/style.' + hash + '.css')
+            return assertResource('/style.css')
                 .then(assertStyleCssBody);
         });
 
         it ('should serve bundle.js.map', function () {
-            return assertResource('/bundle.' + hash + '.js.map');
+            return assertResource('/bundle.js.map');
         });
 
         it ('should serve style.css.map', function () {
-            return assertResource('/style.' + hash + '.css.map');
+            return assertResource('/style.css.map');
         });
     });
 
@@ -95,18 +93,16 @@ describe ('server with dev files', function () {
 
         after(stopServer);
 
-        var hash = null;
-
         it ('should serve index.html', function () {
             return assertResource('/')
                 .then(function (body) {
                     expect(body).match(/^<!DOCTYPE html>/);
-                    hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
+                    body.match(/bundle\.js/)[1];
                 });
         });
 
         it ('should serve bundle.js', function () {
-            return assertResource('/bundle.' + hash + '.js')
+            return assertResource('/bundle.js')
                 .then(body => {
                     expect(body).match(/console\.log\('index'\)/);
                 });
@@ -119,19 +115,17 @@ describe ('server with dev files', function () {
 
         after(stopServer);
 
-        var hash = null;
-
         it ('should serve index.html', function () {
             return assertResource('/')
                 .then(function (body) {
                     expect(body).match(/^<!DOCTYPE html>/);
                     expect(body).match(/<title>App with package\.json<\/title>/);
-                    hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
+                    body.match(/bundle\.js/)[1];
                 });
         });
 
         it ('should serve bundle.js', function () {
-            return assertResource('/bundle.' + hash + '.js')
+            return assertResource('/bundle.js')
                 .then(body => {
                     expect(body).match(/console\.log\('index'\)/);
                 });
@@ -144,29 +138,27 @@ describe ('server with dev files', function () {
 
         after(stopServer);
 
-        var hash = null;
-
         it ('should serve index.html', function () {
             return assertResource('/')
                 .then(function (body) {
                     expect(body).match(/^<!DOCTYPE html>/);
-                    hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
+                    body.match(/bundle\.js/)[1];
                 });
         });
 
         it ('should serve style.css', function () {
-            return assertResource('/style.' + hash + '.css')
+            return assertResource('/style.css')
                 .then(function (body) {
                     expect(body).match(/body h1 {/);
                     expect(body).match(/background-color: red;/);
                     expect(body).match(/body h2 {/);
                     expect(body).match(/background-color: blue;/);
-                    expect(body).match(/\/\*# sourceMappingURL=style\.[a-f0-9]{20}\.css\.map\*\//);
+                    expect(body).match(/\/\*# sourceMappingURL=style\.css\.map\*\//);
                 });
         });
 
         it ('should serve style.css.map', function () {
-            return assertResource('/style.' + hash + '.css.map');
+            return assertResource('/style.css.map');
         });
     });
 
@@ -176,18 +168,16 @@ describe ('server with dev files', function () {
 
         after(stopServer);
 
-        var hash = null;
-
         it ('should serve index.html', function () {
             return assertResource('/')
                 .then(function (body) {
                     expect(body).match(/^<!DOCTYPE html>/);
-                    hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
+                    body.match(/bundle\.js/)[1];
                 });
         });
 
         it ('should include another html template', function () {
-            return assertResource('/bundle.' + hash + '.js')
+            return assertResource('/bundle.js')
                 .then(body => {
                     expect(body).match(/"<div>" \+ __webpack_require__\(2\) \+ "<\/div>"/);
                 });

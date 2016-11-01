@@ -32,19 +32,25 @@ function assertResourceInternal(options, statusCode) {
 
 function assertIndexHtmlBody(body) {
     expect(body).match(/^<!DOCTYPE html>/);
+    expect(body).match(/<link href="style\.css" rel="stylesheet">/);
+    expect(body).match(/<script type="text\/javascript" src="bundle\.js"><\/script>/);
+}
+
+function assertIndexHtmlBodyMinified(body) {
+    expect(body).match(/^<!DOCTYPE html>/);
     expect(body).match(/<link href="style\.[a-f0-9]{20}\.css" rel="stylesheet">/);
     expect(body).match(/<script type="text\/javascript" src="bundle\.[a-f0-9]{20}\.js"><\/script>/);
 }
 
 function assertBundleJsBody(body) {
     expect(body).match(/console\.log\(Math\.pow\(3, 4\)\)/);
-    expect(body).match(/\/\/# sourceMappingURL=bundle\.[a-f0-9]{20}\.js\.map/);
+    expect(body).match(/\/\/# sourceMappingURL=bundle\.js\.map/);
 }
 
 function assertStyleCssBody(body) {
     expect(body).match(/body h1 {/);
     expect(body).match(/background-color: red;/);
-    expect(body).match(/\/\*# sourceMappingURL=style\.[a-f0-9]{20}\.css\.map\*\//);
+    expect(body).match(/\/\*# sourceMappingURL=style\.css\.map\*\//);
 }
 
 function assertBundleJsBodyMinified(body) {
@@ -190,6 +196,7 @@ module.exports = {
     assertFile: assertFile,
     assertFileNonExistant: assertFileNonExistant,
     runPackage: runPackage,
+    assertIndexHtmlBodyMinified: assertIndexHtmlBodyMinified,
     assertBundleJsBodyMinified: assertBundleJsBodyMinified,
     assertStyleCssBodyMinified: assertStyleCssBodyMinified,
     runCli: runCli

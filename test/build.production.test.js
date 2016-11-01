@@ -1,6 +1,6 @@
 var assertFile = require('./helpers').assertFile;
 var assertFileNonExistant = require('./helpers').assertFileNonExistant;
-var assertIndexHtmlBody = require('./helpers').assertIndexHtmlBody;
+var assertIndexHtmlBodyMinified = require('./helpers').assertIndexHtmlBodyMinified;
 var assertBundleJsBodyMinified = require('./helpers').assertBundleJsBodyMinified;
 var assertStyleCssBodyMinified = require('./helpers').assertStyleCssBodyMinified;
 var runBuild = require('./helpers').runBuild;
@@ -31,7 +31,7 @@ describe ('build with production files', function () {
                     hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
                     return body;
                 })
-                .then(assertIndexHtmlBody);
+                .then(assertIndexHtmlBodyMinified);
         });
 
         it ('should write bundle.js', function () {

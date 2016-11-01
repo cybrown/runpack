@@ -33,8 +33,8 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.html$/, loader: 'html?interpolate' },
-            { test: /\.js$/, exclude: /node_modules/, loader: 'babel', query: { presets: [require.resolve('babel-preset-es2015'), require.resolve('babel-preset-es2016')] } },
-            { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel', query: { presets: [require.resolve('babel-preset-react'), require.resolve('babel-preset-es2015'), require.resolve('babel-preset-es2016')] } },
+            { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel', query: { presets: [require.resolve('babel-preset-es2015'), require.resolve('babel-preset-es2016')] } },
+            { test: /\.jsx$/, exclude: /(node_modules|bower_components)/, loader: 'babel', query: { presets: [require.resolve('babel-preset-react'), require.resolve('babel-preset-es2015'), require.resolve('babel-preset-es2016')] } },
             { test: /\.tsx?$/, loader: 'ts' },
             { test: /\.json$/, loader: 'json' },
             { test: /\.css$/, loader: ExtractTextPlugin.extract('style?sourceMap', 'css?sourceMap!postcss?sourceMap') },

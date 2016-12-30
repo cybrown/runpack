@@ -47,6 +47,7 @@ commander
     .option('-e --env <environment>', 'Specify environment, dev or prod', /^(dev|prod)$/i, 'dev')
     .option('--proxy <url>', 'Proxy all unresolved requests to the given url')
     .option('-t --test', 'Run tests in watch mode alongside the server')
+    .option('--favicon <path>', 'Path to favicon')
     .action(commandWrapper('server'));
 
 commander
@@ -54,6 +55,7 @@ commander
     .alias('b')
     .description('Create production files')
     .option('-e --env <environment>', 'Specify environment, dev or prod', /^(dev|prod)$/i, 'prod')
+    .option('--favicon <path>', 'Path to favicon')
     .action(commandWrapper('build'));
 
 commander
@@ -62,6 +64,7 @@ commander
     .description('Create production package')
     .option('-t --type [type]', 'Create an archive (zip or tgz), defaults to zip', /^(zip|tgz)$/i, 'zip')
     .option('-e --env <environment>', 'Specify environment, dev or prod', /^(dev|prod)$/i, 'prod')
+    .option('--favicon <path>', 'Path to favicon')
     .action(commandWrapper('package'));
 
 commander

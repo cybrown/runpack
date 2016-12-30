@@ -4,6 +4,7 @@ var assertIndexHtmlBodyMinified = require('./helpers').assertIndexHtmlBodyMinifi
 var assertBundleJsBodyMinified = require('./helpers').assertBundleJsBodyMinified;
 var assertStyleCssBodyMinified = require('./helpers').assertStyleCssBodyMinified;
 var runBuild = require('./helpers').runBuild;
+var expect = require('chai').expect;
 var path = require('path');
 var del = require('del');
 
@@ -50,6 +51,22 @@ describe ('build with production files', function () {
 
         it ('should not write style.css.map', function () {
             return assertFileNonExistant(path.resolve(process.cwd(), 'test-samples', 'project1', 'dist', 'style.' + hash + '.css.map'));
+        });
+    });
+
+    describe ('tests on favicon', function () {
+
+        before(runBuild('favicon', ['-e', 'prod', '--favicon', path.resolve(process.cwd(), 'test-samples', 'favicon', 'images', 'favicon.png')]));
+
+        after(function () {
+            return del(path.resolve(process.cwd(), 'test-samples', 'favicon', 'dist'));
+        });
+
+        it ('should emit a favicon', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'favicon', 'dist', 'index.html'))
+                .then(function (body) {
+                    expect(body).to.match(/<link rel="shortcut icon" href="favicon\.png"><\/head>/);
+                });
         });
     });
 });

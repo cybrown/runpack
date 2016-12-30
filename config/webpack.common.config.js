@@ -21,6 +21,9 @@ var webpackHtmlOptions = {};
 if (fs.existsSync(possibleIndexHtmlPath)) {
     webpackHtmlOptions.template = possibleIndexHtmlPath;
 }
+if (process.env.RUNPACK_FAVICON) {
+    webpackHtmlOptions.favicon = process.env.RUNPACK_FAVICON;
+}
 
 module.exports = {
     entry: mainScriptFile,

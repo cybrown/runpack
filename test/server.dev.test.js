@@ -7,6 +7,7 @@ var startServer = require('./helpers').startServer;
 var stopServer = require('./helpers').stopServer;
 var expect = require('chai').expect;
 var http = require('http');
+var path = require('path');
 
 describe ('server with dev files', function () {
 
@@ -180,6 +181,20 @@ describe ('server with dev files', function () {
             return assertResource('/bundle.js')
                 .then(body => {
                     expect(body).match(/"<div>" \+ __webpack_require__\(2\) \+ "<\/div>"/);
+                });
+        });
+    });
+
+    describe ('Favicon', function () {
+
+        before(startServer('favicon', ['--favicon', path.resolve(process.cwd(), 'test-samples', 'favicon', 'images', 'favicon.png')]));
+
+        after(stopServer);
+
+        it ('should include a favicon', function () {
+            return assertResource('/')
+                .then(body => {
+                    expect(body).to.match(/<link rel="shortcut icon" href="favicon\.png"><\/head>/);
                 });
         });
     });

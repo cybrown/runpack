@@ -8,6 +8,7 @@ var del = require('del');
 var unzip = require('unzip');
 var fs = require('fs');
 var MemoryStream = require('memory-stream');
+var expect = require('chai').expect;
 
 describe ('package zip with production files', function () {
 
@@ -70,6 +71,54 @@ describe ('package zip with production files', function () {
 
         it ('should archive style.css', function () {
             assertStyleCssBodyMinified(styleCssContent);
+        });
+    });
+
+    describe ('tests on favicon', function () {
+
+        before (runPackage('favicon', ['-e', 'prod', '--favicon', path.resolve(process.cwd(), 'test-samples', 'favicon', 'images', 'favicon.png')]));
+
+        var indexHtmlContent;
+        var isFaviconPngPresent = false;
+
+        before (function (done) {
+            setTimeout(function () {
+                fs.createReadStream(path.resolve(process.cwd(), 'package.zip'))
+                    .pipe(unzip.Parse())
+                    .on('error', done)
+                    .on('entry', function (entry) {
+                        var ws = new MemoryStream();
+                        entry.pipe(ws);
+                        ws.on('finish', function () {
+                            var stringContent = ws.get().toString();
+                            console.log(entry.path);
+                            if (/\.html$/.test(entry.path)) {
+                                indexHtmlContent = stringContent;
+                            } else if (/favicon\.png$/.test(entry.path)) {
+                                isFaviconPngPresent = true;
+                            }
+                        });
+                    })
+                    .on('close', function () {
+                        done();
+                    });
+            }, 3000);
+        });
+
+        after (function () {
+            return del(path.resolve(process.cwd(), 'test-samples', 'favicon', 'package.zip'));
+        });
+
+        it ('should write package.zip', function () {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'favicon', 'package.zip'));
+        });
+
+        it ('should archive index.html', function () {
+            expect(indexHtmlContent).to.match(/<link rel="shortcut icon" href="favicon\.png"><\/head>/);
+        });
+
+        it ('should archive favicon.png', function () {
+            expect(isFaviconPngPresent).to.be.ok;
         });
     });
 });

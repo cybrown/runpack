@@ -116,3 +116,4 @@ runpack <command> --help
  * Uses hashes for cache-busting
  * History API fallback enabled by default
  * Proxy unresolved requests to a backend server
+ * Simple favicon support for dev server, production files and archive

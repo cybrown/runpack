@@ -91,7 +91,6 @@ describe ('package zip with production files', function () {
                         entry.pipe(ws);
                         ws.on('finish', function () {
                             var stringContent = ws.get().toString();
-                            console.log(entry.path);
                             if (/\.html$/.test(entry.path)) {
                                 indexHtmlContent = stringContent;
                             } else if (/favicon\.png$/.test(entry.path)) {

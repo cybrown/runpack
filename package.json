@@ -1,6 +1,6 @@
 {
   "name": "runpack",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A ready to run, zero configuration webpack and webpack-dev-server build tool, without project generation",
   "main": "index.js",
   "scripts": {

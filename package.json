@@ -55,6 +55,7 @@
     "webpack": "^1.13.1",
     "webpack-config-merger": "0.0.5",
     "webpack-dev-server": "^1.14.1",
+    "webpack-stable-module-id-and-hash": "^1.0.5",
     "winston": "^2.2.0"
   },
   "bin": "./bin/runpack.js",

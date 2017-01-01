@@ -26,7 +26,9 @@ if (process.env.RUNPACK_FAVICON) {
 }
 
 module.exports = {
-    entry: mainScriptFile,
+    entry: {
+        bundle: mainScriptFile
+    },
     output: {
         filename: 'bundle.js'
     },

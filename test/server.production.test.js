@@ -20,33 +20,35 @@ describe ('server with production files', function () {
 
         after(stopServer);
 
-        var hash = null;
+        var jsHash = null;
+        var cssHash = null;
 
         it ('should serve index.html', function () {
             return assertResource('/')
                 .then(function (body) {
-                    hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
+                    jsHash = body.match(/bundle\.([a-f0-9\-]{20})\.js/)[1];
+                    cssHash = body.match(/bundle\.([a-f0-9]{32})\.css/)[1];
                     return body;
                 })
                 .then(assertIndexHtmlBodyMinified);
         });
 
         it ('should serve bundle.js', function () {
-            return assertResource('/bundle.' + hash + '.js')
+            return assertResource('/bundle.' + jsHash + '.js')
                 .then(assertBundleJsBodyMinified);
         });
 
-        it ('should serve style.css', function () {
-            return assertResource('/style.' + hash + '.css')
+        it ('should serve bundle.css', function () {
+            return assertResource('/bundle.' + cssHash + '.css')
                 .then(assertStyleCssBodyMinified);
         });
 
         it ('should not serve bundle.js.map', function () {
-            return assertResource('/bundle.' + hash + '.js.map', 404);
+            return assertResource('/bundle.' + jsHash + '.js.map', 404);
         });
 
-        it ('should not serve style.css.map', function () {
-            return assertResource('/style.' + hash + '.css.map', 404);
+        it ('should not serve bundle.css.map', function () {
+            return assertResource('/bundle.' + cssHash + '.css.map', 404);
         });
     });
 });

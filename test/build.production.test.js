@@ -24,33 +24,35 @@ describe ('build with production files', function () {
             return del(path.resolve(process.cwd(), 'test-samples', 'project1', 'dist'));
         });
 
-        var hash = null;
+        var jsHash = null;
+        var cssHash = null;
 
         it ('should write index.html', function () {
             return assertFile(path.resolve(process.cwd(), 'test-samples', 'project1', 'dist', 'index.html'))
                 .then(function (body) {
-                    hash = body.match(/bundle\.([a-f0-9]{20})\.js/)[1];
+                    jsHash = body.match(/bundle\.([a-f0-9\-]{20})\.js/)[1];
+                    cssHash = body.match(/bundle\.([a-f0-9]{32})\.css/)[1];
                     return body;
                 })
                 .then(assertIndexHtmlBodyMinified);
         });
 
         it ('should write bundle.js', function () {
-            return assertFile(path.resolve(process.cwd(), 'test-samples', 'project1', 'dist', 'bundle.' + hash + '.js'))
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'project1', 'dist', 'bundle.' + jsHash + '.js'))
                 .then(assertBundleJsBodyMinified);
         });
 
-        it ('should write style.css', function () {
-            return assertFile(path.resolve(process.cwd(), 'test-samples', 'project1', 'dist', 'style.' + hash + '.css'))
+        it ('should write bundle.css', function () {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'project1', 'dist', 'bundle.' + cssHash + '.css'))
                 .then(assertStyleCssBodyMinified);
         });
 
         it ('should not write bundle.js.map', function () {
-            return assertFileNonExistant(path.resolve(process.cwd(), 'test-samples', 'project1', 'dist', 'bundle.' + hash + '.js.map'));
+            return assertFileNonExistant(path.resolve(process.cwd(), 'test-samples', 'project1', 'dist', 'bundle.' + jsHash + '.js.map'));
         });
 
-        it ('should not write style.css.map', function () {
-            return assertFileNonExistant(path.resolve(process.cwd(), 'test-samples', 'project1', 'dist', 'style.' + hash + '.css.map'));
+        it ('should not write bundle.css.map', function () {
+            return assertFileNonExistant(path.resolve(process.cwd(), 'test-samples', 'project1', 'dist', 'bundle.' + cssHash + '.css.map'));
         });
     });
 
@@ -67,6 +69,49 @@ describe ('build with production files', function () {
                 .then(function (body) {
                     expect(body).to.match(/<link rel="shortcut icon" href="favicon\.png"><\/head>/);
                 });
+        });
+    });
+
+    describe ('tests on project-with-node_modules', function () {
+
+        before(runBuild('project-with-node_modules', ['-e', 'prod']));
+
+        after(() => del(path.resolve(process.cwd(), 'test-samples', 'project-with-node_modules', 'dist')));
+
+        var bundleJsHash = null;
+        var vendorJsHash = null;
+        var bundleCssHash = null;
+        var vendorCssHash = null;
+
+        it ('should emit index.html with 4 files', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'project-with-node_modules', 'dist', 'index.html'))
+                .then(body => {
+                    bundleJsHash = body.match(/bundle\.([a-f0-9\-]{20})\.js/)[1];
+                    vendorJsHash = body.match(/vendor\.([a-f0-9\-]{20})\.js/)[1];
+                    bundleCssHash = body.match(/bundle\.([a-f0-9]{32})\.css/)[1];
+                    vendorCssHash = body.match(/vendor\.([a-f0-9]{32})\.css/)[1];
+                    return body;
+                });
+        });
+
+        it ('should emit bundle.js', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'project-with-node_modules', 'dist', 'bundle.' + bundleJsHash + '.js'))
+                .then(body => expect(body).to.match(/custom lib/));
+        });
+
+        it ('should emit bundle.css', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'project-with-node_modules', 'dist', 'bundle.' + bundleCssHash + '.css'))
+                .then(body => expect(body).to.match(/custom-style/));
+        });
+
+        it ('should emit vendor.js', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'project-with-node_modules', 'dist', 'vendor.' + vendorJsHash + '.js'))
+                .then(body => expect(body).to.match(/dummy jquery/));
+        });
+
+        it ('should emit vendor.css', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'project-with-node_modules', 'dist', 'vendor.' + vendorCssHash + '.css'))
+                .then(body => expect(body).to.match(/dummy-jquery-css/));
         });
     });
 });

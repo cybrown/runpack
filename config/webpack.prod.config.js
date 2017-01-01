@@ -1,9 +1,10 @@
 var webpack = require('webpack');
 var mergeWebpackConfig = require('webpack-config-merger');
+var WebpackStableModuleIdAndHash = require('webpack-stable-module-id-and-hash');
 
 var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config'), {
     output: {
-        filename: 'bundle.[hash].js'
+        filename: '[name].[chunkhash].js'
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin(),
@@ -13,10 +14,18 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
             }
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.DedupePlugin()
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            minChunks: function(module, count) {
+                const userRequest = module.userRequest;
+                return userRequest && userRequest.indexOf('/node_modules/') >= 0;
+            }
+        }),
+        new WebpackStableModuleIdAndHash()
     ]
 });
 
-webpackConfiguration.plugins[0].filename = 'style.[hash].css';
+webpackConfiguration.plugins[0].filename = '[name].[contenthash].css';
 
 module.exports = webpackConfiguration;

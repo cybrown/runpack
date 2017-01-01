@@ -38,8 +38,8 @@ function assertIndexHtmlBody(body) {
 
 function assertIndexHtmlBodyMinified(body) {
     expect(body).match(/^<!DOCTYPE html>/);
-    expect(body).match(/<link href="style\.[a-f0-9]{20}\.css" rel="stylesheet">/);
-    expect(body).match(/<script type="text\/javascript" src="bundle\.[a-f0-9]{20}\.js"><\/script>/);
+    expect(body).match(/<link href="bundle\.[a-f0-9]{32}\.css" rel="stylesheet">/);
+    expect(body).match(/<script type="text\/javascript" src="bundle\.[a-f0-9\-]{20}\.js"><\/script>/);
 }
 
 function assertBundleJsBody(body) {

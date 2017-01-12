@@ -79,6 +79,11 @@ Dump build scripts, generate npm commands and install dev depenencies (may be ir
 runpack eject
 ```
 
+By default, the favicon.png file next to your main javascript file will be used as a favicon, to define another path, use --favicon:
+```
+runpack server --favicon path/to/favicon
+```
+
 Get help:
 ```
 runpack --help

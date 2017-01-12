@@ -72,6 +72,22 @@ describe ('build with production files', function () {
         });
     });
 
+    describe ('tests on favicon-default', function () {
+
+        before(runBuild('favicon-default', ['-e', 'prod']));
+
+        after(function () {
+            return del(path.resolve(process.cwd(), 'test-samples', 'favicon-default', 'dist'));
+        });
+
+        it ('should emit a favicon', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'favicon-default', 'dist', 'index.html'))
+                .then(function (body) {
+                    expect(body).to.match(/<link rel="shortcut icon" href="favicon\.png"><\/head>/);
+                });
+        });
+    });
+
     describe ('tests on project-with-node_modules', function () {
 
         before(runBuild('project-with-node_modules', ['-e', 'prod']));

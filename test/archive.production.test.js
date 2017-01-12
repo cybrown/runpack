@@ -120,4 +120,51 @@ describe ('package zip with production files', function () {
             expect(isFaviconPngPresent).to.be.ok;
         });
     });
+
+    describe ('tests on favicon-default', function () {
+
+        before (runPackage('favicon-default', ['-e', 'prod']));
+
+        var indexHtmlContent;
+        var isFaviconPngPresent = false;
+
+        before (function (done) {
+            setTimeout(function () {
+                fs.createReadStream(path.resolve(process.cwd(), 'package.zip'))
+                    .pipe(unzip.Parse())
+                    .on('error', done)
+                    .on('entry', function (entry) {
+                        var ws = new MemoryStream();
+                        entry.pipe(ws);
+                        ws.on('finish', function () {
+                            var stringContent = ws.get().toString();
+                            if (/\.html$/.test(entry.path)) {
+                                indexHtmlContent = stringContent;
+                            } else if (/favicon\.png$/.test(entry.path)) {
+                                isFaviconPngPresent = true;
+                            }
+                        });
+                    })
+                    .on('close', function () {
+                        done();
+                    });
+            }, 3000);
+        });
+
+        after (function () {
+            return del(path.resolve(process.cwd(), 'test-samples', 'favicon-default', 'package.zip'));
+        });
+
+        it ('should write package.zip', function () {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'favicon-default', 'package.zip'));
+        });
+
+        it ('should archive index.html', function () {
+            expect(indexHtmlContent).to.match(/<link rel="shortcut icon" href="favicon\.png"><\/head>/);
+        });
+
+        it ('should archive favicon.png', function () {
+            expect(isFaviconPngPresent).to.be.ok;
+        });
+    });
 });

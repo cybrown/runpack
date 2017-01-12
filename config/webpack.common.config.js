@@ -21,8 +21,14 @@ var webpackHtmlOptions = {};
 if (fs.existsSync(possibleIndexHtmlPath)) {
     webpackHtmlOptions.template = possibleIndexHtmlPath;
 }
+
 if (process.env.RUNPACK_FAVICON) {
     webpackHtmlOptions.favicon = process.env.RUNPACK_FAVICON;
+} else {
+    var possibleFaviconPath = path.resolve(path.dirname(mainScriptFile), 'favicon.png');
+    if (fs.existsSync(possibleFaviconPath)) {
+        webpackHtmlOptions.favicon = possibleFaviconPath;
+    }
 }
 
 module.exports = {

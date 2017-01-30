@@ -224,4 +224,16 @@ describe ('server with dev files', function () {
                 .then(body => expect(body).to.match(/\'\\A\'/));
         });
     });
+
+    describe ('CSS hash in URL', function () {
+
+        before(startServer('css-url-hash'));
+
+        after(stopServer);
+
+        it ('should escape css caracters', function () {
+            return assertResource('/style.css')
+                .then(body => expect(body).to.match(/\.eot/));
+        });
+    });
 });

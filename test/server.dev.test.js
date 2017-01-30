@@ -212,4 +212,16 @@ describe ('server with dev files', function () {
                 });
         });
     });
+
+    describe ('Escape CSS', function () {
+
+        before(startServer('escape-css'));
+
+        after(stopServer);
+
+        it ('should escape css caracters', function () {
+            return assertResource('/style.css')
+                .then(body => expect(body).to.match(/\'\\A\'/));
+        });
+    });
 });

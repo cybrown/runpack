@@ -130,4 +130,26 @@ describe ('build with production files', function () {
                 .then(body => expect(body).to.match(/dummy-jquery-css/));
         });
     });
+
+    describe ('Escape CSS', function () {
+
+        before(runBuild('escape-css', ['-e', 'prod']));
+
+        after(() => del(path.resolve(process.cwd(), 'test-samples', 'escape-css', 'dist')));
+
+        var bundleCssHash = null;
+
+        it ('should emit index.html', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'escape-css', 'dist', 'index.html'))
+                .then(body => {
+                    bundleCssHash = body.match(/bundle\.([a-f0-9]{32})\.css/)[1];
+                    return body;
+                });
+        });
+
+        it ('should escape css caracters', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'escape-css', 'dist', 'bundle.' + bundleCssHash + '.css'))
+                .then(body => expect(body).to.match(/\\A/));
+        });
+    });
 });

@@ -52,10 +52,10 @@ module.exports = {
             { test: /\.sass$/, loader: ExtractTextPlugin.extract('style?sourceMap', 'css?sourceMap!postcss?sourceMap!sass?sourceMap') },
             { test: /\.scss$/, loader: ExtractTextPlugin.extract('style?sourceMap', 'css?sourceMap!postcss?sourceMap!sass?sourceMap') },
             { test: /\.less$/, loader: ExtractTextPlugin.extract('style?sourceMap', 'css?sourceMap!postcss?sourceMap!less?sourceMap') },
-            { test: /\.woff2?(\?[a-zA-Z0-9\-#]+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
-            { test: /\.ttf(\?[a-zA-Z0-9\-#]+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
-            { test: /\.eot(\?[a-zA-Z0-9\-#]+)?$/, loader: 'file' },
-            { test: /\.svg(\?[a-zA-Z0-9\-#]+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' },
+            { test: /\.woff2?(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
+            { test: /\.ttf(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
+            { test: /\.eot(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'file' },
+            { test: /\.svg(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' },
             { test: /\.(jpe?g|png|gif)$/i, loaders: [ 'file?hash=sha512&digest=hex&name=[hash].[ext]', 'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false' ] }
         ]
     },

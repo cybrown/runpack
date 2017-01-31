@@ -11,3 +11,4 @@ deploy:
   on:
     tags: true
     branch: release
+    node: '7.0'

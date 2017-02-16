@@ -105,7 +105,7 @@ runpack <command> --help
  * No lock-in with the "eject" command
  * No configuration generation
  * No complicated conventions (having one main script file is enough)
- * Developpment server
+ * Developpment server with livereload
  * ES2016 (and JSX) with Babel
  * TypeScript
  * CSS preprocessors (Sass and Less)

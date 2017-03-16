@@ -1,7 +1,7 @@
 var mergeWebpackConfig = require('webpack-config-merger');
 var LiveReloadPlugin = require('webpack-livereload-plugin');
 
-let sourceMapConfiguration = 'source-map';
+var sourceMapConfiguration = 'source-map';
 
 if (process.env.CHEAP_SOURCEMAP) {
     sourceMapConfiguration = 'cheap-module-eval-source-map';

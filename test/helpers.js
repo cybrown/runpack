@@ -101,7 +101,7 @@ function startServer(projectName, args) {
             process.chdir(path.join('test-samples', projectName));
             childWebpackServerProcess = spawn('node', [binPath, 'server'].concat(args));
             childWebpackServerProcess.stdout.on('data', function (data) {
-                if (/webpack: bundle is now VALID\./.test(data.toString('utf-8'))) {
+                if (/webpack: Compiled successfully\./.test(data.toString('utf-8'))) {
                     resolve();
                 }
             });

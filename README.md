@@ -44,6 +44,11 @@ Run the developpment server with a backend server:
 runpack server --proxy http://localhost:8080
 ```
 
+Run the developpment server with a backend server and html5 history API (mandatory if using both proxy and html5 type routing):
+```
+runpack server --proxy http://localhost:8080 --proxy-root /rest
+```
+
 Build production files in /dist:
 ```
 runpack build

@@ -12,7 +12,7 @@ Included: dev server, unit tests, coverage, and more ! (see features)
 ```
 npm i -g runpack
 ```
-You may also use it as a dev dependency.²
+You may also use it as a dev dependency.
 
 ## Project initialisation
 

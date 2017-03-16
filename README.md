@@ -39,6 +39,11 @@ Run the developpment server (default port is already 3000):
 runpack server --port 3000
 ```
 
+Run the developpment server with cheap sourcemaps (faster builds but less precise sourcemaps, enable it on large projects):
+```
+runpack server --cheap-sourcemap
+```
+
 Run the developpment server with a backend server:
 ```
 runpack server --proxy http://localhost:8080

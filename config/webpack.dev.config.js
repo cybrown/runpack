@@ -1,12 +1,18 @@
 var mergeWebpackConfig = require('webpack-config-merger');
 var LiveReloadPlugin = require('webpack-livereload-plugin');
 
+let sourceMapConfiguration = 'source-map';
+
+if (process.env.CHEAP_SOURCEMAP) {
+    sourceMapConfiguration = 'cheap-module-eval-source-map';
+}
+
 module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
     output: {
         devtoolModuleFilenameTemplate: "[resource]",
         devtoolFallbackModuleFilenameTemplate: "[resource]?[hash]"
     },
-    devtool: 'source-map',
+    devtool: sourceMapConfiguration,
     debug: true,
     plugins: [new LiveReloadPlugin()]
 });

@@ -44,6 +44,7 @@ commander
     .alias('s')
     .description('Run development server')
     .option('-p, --port <port>', 'Port for development server')
+    .option('--ssl', 'Enable HTTPS')
     .option('-e --env <environment>', 'Specify environment, dev or prod', /^(dev|prod)$/i, 'dev')
     .option('--proxy <url>', 'Proxy all unresolved requests to the given url')
     .option('--proxy-root <url>', 'Base url for proxied requests (mandatory for html history API)')

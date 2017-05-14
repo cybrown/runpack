@@ -152,4 +152,54 @@ describe ('build with production files', function () {
                 .then(body => expect(body).to.match(/\\A/));
         });
     });
+
+    describe ('Tree shacking with Babel', function () {
+
+        before(runBuild('tree-shaking-babel', ['-e', 'prod']));
+
+        after(() => del(path.resolve(process.cwd(), 'test-samples', 'tree-shaking-babel', 'dist')));
+
+        var bundleJsHash = null;
+
+        it('should emit index.html', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'tree-shaking-babel', 'dist', 'index.html'))
+                .then(body => {
+                    bundleJsHash = body.match(/bundle\.([a-f0-9\-]{20})\.js/)[1];
+                    return body;
+                });
+        });
+
+        it ('should not bundle unused exports', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'tree-shaking-babel', 'dist', 'bundle.' + bundleJsHash + '.js'))
+                .then(body => {
+                    expect(/this should be bundled/.test(body)).to.be.ok;
+                    expect(/this should not be bundled/.test(body)).to.be.false;
+                });
+        });
+    });
+
+    describe ('Tree shacking with Typescript', function () {
+
+        before(runBuild('tree-shaking-typescript', ['-e', 'prod']));
+
+        after(() => del(path.resolve(process.cwd(), 'test-samples', 'tree-shaking-typescript', 'dist')));
+
+        var bundleJsHash = null;
+
+        it('should emit index.html', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'tree-shaking-typescript', 'dist', 'index.html'))
+                .then(body => {
+                    bundleJsHash = body.match(/bundle\.([a-f0-9\-]{20})\.js/)[1];
+                    return body;
+                });
+        });
+
+        it('should not bundle unused exports', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'tree-shaking-typescript', 'dist', 'bundle.' + bundleJsHash + '.js'))
+                .then(body => {
+                    expect(/this should be bundled/.test(body)).to.be.ok;
+                    expect(/this should not be bundled/.test(body)).to.be.false;
+                });
+        });
+    });
 });

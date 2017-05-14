@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var mergeWebpackConfig = require('webpack-config-merger');
 var WebpackStableModuleIdAndHash = require('webpack-stable-module-id-and-hash');
+var OptimizeCssAssetsPlugin  = require('optimize-css-assets-webpack-plugin');
 
 var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config'), {
     output: {
@@ -13,8 +14,6 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.DedupePlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minChunks: function(module, count) {
@@ -22,7 +21,8 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
                 return userRequest && userRequest.indexOf('/node_modules/') >= 0;
             }
         }),
-        new WebpackStableModuleIdAndHash()
+        new OptimizeCssAssetsPlugin(),
+        new webpack.HashedModuleIdsPlugin()
     ]
 });
 

@@ -1,5 +1,6 @@
 var mergeWebpackConfig = require('webpack-config-merger');
 var LiveReloadPlugin = require('webpack-livereload-plugin');
+var webpack = require('webpack');
 
 var sourceMapConfiguration = 'source-map';
 
@@ -13,6 +14,10 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
         devtoolFallbackModuleFilenameTemplate: "[resource]?[hash]"
     },
     devtool: sourceMapConfiguration,
-    debug: true,
-    plugins: [new LiveReloadPlugin()]
+    plugins: [
+        new LiveReloadPlugin(),
+        new webpack.LoaderOptionsPlugin({
+            debug: true
+        })
+    ]
 });

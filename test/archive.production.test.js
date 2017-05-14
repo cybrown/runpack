@@ -38,7 +38,7 @@ describe ('package zip with production files', function () {
                             var stringContent = ws.get().toString();
                             if (/\.html$/.test(entry.path)) {
                                 indexHtmlContent = stringContent;
-                            } else if (/\.js$/.test(entry.path)) {
+                            } else if (/^bundle.*\.js$/.test(entry.path)) {
                                 bundleJsContent = stringContent;
                             } else if (/\.css$/.test(entry.path)) {
                                 styleCssContent = stringContent;

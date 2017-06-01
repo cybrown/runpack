@@ -21,7 +21,11 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
                 return userRequest && userRequest.indexOf('/node_modules/') >= 0;
             }
         }),
-        new OptimizeCssAssetsPlugin(),
+        new OptimizeCssAssetsPlugin({
+            cssProcessorOptions: {
+                safe: true
+            }
+        }),
         new webpack.HashedModuleIdsPlugin()
     ]
 });

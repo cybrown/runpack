@@ -18,7 +18,7 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
             name: 'vendor',
             minChunks: function(module, count) {
                 const userRequest = module.userRequest;
-                return userRequest && userRequest.indexOf('/node_modules/') >= 0;
+                return userRequest && /[\\/]node_modules[\\/]/.test(userRequest);
             }
         }),
         new OptimizeCssAssetsPlugin({

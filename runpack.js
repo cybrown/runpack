@@ -51,6 +51,8 @@ commander
     .option('-t --test', 'Run tests in watch mode alongside the server')
     .option('--favicon <path>', 'Path to favicon')
     .option('--cheap-sourcemap', 'Enable cheap sourcemaps, faster builds but less precise sourcemaps')
+    .option('--hot', 'Enable basic support for hot module replacement')
+    .option('--hot-react', 'Enable hot module replacement with react support')
     .action(commandWrapper('server'));
 
 commander

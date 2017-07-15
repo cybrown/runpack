@@ -5,7 +5,7 @@ A ready to run, framework agnostic, zero configuration webpack 2 and webpack-dev
 
 Babel with ES2016, JSX, TypeScript, Sass, Less and autoprefixer are supported by default.
 
-Included: dev server, unit tests, coverage, and more ! (see features)
+Included: dev server, unit tests, coverage, hot module replacement, and more ! (see features)
 
 ## Installation
 
@@ -57,6 +57,16 @@ runpack server --proxy http://localhost:8080 --proxy-root /rest
 Build production files in /dist:
 ```
 runpack build
+```
+
+Run server with basic hot module replacement (styles are supported):
+```
+runpack server --hot
+```
+
+Run server with hot module replacement and React support (you must use <AppContainer /> and module.hot.accept from react-hot-loader as in [react-hot-ts](https://github.com/Glavin001/react-hot-ts/blob/master/src/index.tsx) to support hot module replacement in the application code):
+```
+runpack server --hot-react
 ```
 
 Create a production archive (zip and .tar.gz are supported):
@@ -133,3 +143,4 @@ runpack <command> --help
  * Proxy unresolved requests to a backend server
  * Simple favicon support for dev server, production files and archive
  * Tree shaking (for Typescript, configure es2015 modules in the tsconfig.json file)
+ * Hot module replacement (basic support for styles and specific React support)

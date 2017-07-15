@@ -32,7 +32,6 @@ function assertResourceInternal(options, statusCode) {
 
 function assertIndexHtmlBody(body) {
     expect(body).match(/^<!DOCTYPE html>/);
-    expect(body).match(/<link href="style\.css" rel="stylesheet">/);
     expect(body).match(/<script type="text\/javascript" src="bundle\.js"><\/script>/);
 }
 
@@ -44,13 +43,9 @@ function assertIndexHtmlBodyMinified(body) {
 
 function assertBundleJsBody(body) {
     expect(body).match(/console\.log\(Math\.pow\(3, 4\)\)/);
-    expect(body).match(/\/\/# sourceMappingURL=bundle\.js\.map/);
-}
-
-function assertStyleCssBody(body) {
     expect(body).match(/body h1 {/);
     expect(body).match(/background-color: red;/);
-    expect(body).match(/\/\*# sourceMappingURL=style\.css\.map\*\//);
+    expect(body).match(/\/\/# sourceMappingURL=bundle\.js\.map/);
 }
 
 function assertBundleJsBodyMinified(body) {
@@ -189,7 +184,6 @@ module.exports = {
     assertHtmlResource: assertHtmlResource,
     assertIndexHtmlBody: assertIndexHtmlBody,
     assertBundleJsBody: assertBundleJsBody,
-    assertStyleCssBody: assertStyleCssBody,
     startServer: startServer,
     stopServer: stopServer,
     runBuild: runBuild,

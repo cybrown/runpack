@@ -13,6 +13,14 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
         devtoolModuleFilenameTemplate: "[resource]",
         devtoolFallbackModuleFilenameTemplate: "[resource]?[hash]"
     },
+    module: {
+        rules: [
+            { test: /\.css$/, loader: 'style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap' },
+            { test: /\.sass$/, loader: 'style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap!sass-loader?sourceMap' },
+            { test: /\.scss$/, loader: 'style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap!sass-loader?sourceMap' },
+            { test: /\.less$/, loader: 'style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap!less-loader?sourceMap' },
+        ]
+    },
     devtool: sourceMapConfiguration,
     plugins: [
         new LiveReloadPlugin(),

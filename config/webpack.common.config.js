@@ -2,7 +2,6 @@ var fs = require('fs');
 var path = require('path');
 
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var precss = require('precss');
 var autoprefixer = require('autoprefixer');
@@ -49,10 +48,6 @@ module.exports = {
             { test: /\.jsx$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: [require.resolve('babel-preset-react'), [require.resolve('babel-preset-es2015'), {modules: false}], require.resolve('babel-preset-es2016')] } },
             { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
             { test: /\.json$/, loader: 'json-loader' },
-            { test: /\.css$/, loader: ExtractTextPlugin.extract({fallback: 'style-loader?sourceMap', use: 'css-loader?sourceMap!postcss-loader?sourceMap'}) },
-            { test: /\.sass$/, loader: ExtractTextPlugin.extract({fallback: 'style-loader?sourceMap', use: 'css-loader?sourceMap!postcss-loader?sourceMap!sass-loader?sourceMap'}) },
-            { test: /\.scss$/, loader: ExtractTextPlugin.extract({fallback: 'style-loader?sourceMap', use: 'css-loader?sourceMap!postcss-loader?sourceMap!sass-loader?sourceMap'}) },
-            { test: /\.less$/, loader: ExtractTextPlugin.extract({fallback: 'style-loader?sourceMap', use: 'css-loader?sourceMap!postcss-loader?sourceMap!less-loader?sourceMap'}) },
             { test: /\.woff2?(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
             { test: /\.ttf(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
             { test: /\.eot(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'file-loader' },
@@ -61,10 +56,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin({
-            filename: 'style.css',
-            allChunks: true
-        }),
         new HtmlWebpackPlugin(webpackHtmlOptions),
         new webpack.LoaderOptionsPlugin({
             options: {

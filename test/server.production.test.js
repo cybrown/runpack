@@ -4,6 +4,7 @@ var assertBundleJsBodyMinified = require('./helpers').assertBundleJsBodyMinified
 var assertStyleCssBodyMinified = require('./helpers').assertStyleCssBodyMinified;
 var startServer = require('./helpers').startServer;
 var stopServer = require('./helpers').stopServer;
+var expect = require('chai').expect;
 
 
 describe ('server with production files', function () {
@@ -49,6 +50,55 @@ describe ('server with production files', function () {
 
         it ('should not serve bundle.css.map', function () {
             return assertResource('/bundle.' + cssHash + '.css.map', 404);
+        });
+    });
+
+    describe ('CSS hash in URL', function () {
+
+        before(startServer('css-url-hash', ['-e', 'prod']));
+
+        after(stopServer);
+
+        var cssHash = null;
+
+        it ('should serve index.html', function () {
+            return assertResource('/')
+                .then(function (body) {
+                    cssHash = body.match(/vendor\.([a-f0-9]{32})\.css/)[1];
+                    return body;
+                });
+        });
+
+        it ('should escape css caracters', function () {
+            return assertResource('/vendor.' + cssHash + '.css')
+                .then(body => expect(body).to.match(/\.eot/));
+        });
+    });
+
+    describe ('tests on project-with-sass', function () {
+
+        before(startServer('project-with-sass', ['-e', 'prod']));
+
+        after(stopServer);
+
+        var cssHash = null;
+
+        it ('should serve index.html', function () {
+            return assertResource('/')
+                .then(function (body) {
+                    expect(body).match(/^<!DOCTYPE html>/);
+                    cssHash = body.match(/bundle\.([a-f0-9]{32})\.css/)[1];
+                });
+        });
+
+        it ('should serve bundle.css', function () {
+            return assertResource('/bundle.' + cssHash + '.css')
+                .then(function (body) {
+                    expect(body).match(/body h1{/);
+                    expect(body).match(/background-color:red/);
+                    expect(body).match(/body h2{/);
+                    expect(body).match(/background-color:blue/);
+                });
         });
     });
 });

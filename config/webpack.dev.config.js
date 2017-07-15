@@ -26,6 +26,7 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
         new LiveReloadPlugin(),
         new webpack.LoaderOptionsPlugin({
             debug: true
-        })
+        }),
+        new webpack.NamedModulesPlugin()
     ]
 });

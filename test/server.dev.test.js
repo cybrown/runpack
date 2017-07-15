@@ -189,7 +189,7 @@ describe ('server with dev files', function () {
         it ('should include another html template', function () {
             return assertResource('/bundle.js')
                 .then(body => {
-                    expect(body).match(/"<div>" \+ __webpack_require__\(2\) \+ "<\/div>"/);
+                    expect(body).match(/"<div>" \+ __webpack_require__\("\.\/b\.html"\) \+ "<\/div>"/);
                 });
         });
     });

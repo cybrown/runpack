@@ -39,6 +39,10 @@ module.exports = {
         filename: 'bundle.js'
     },
     resolve: {
+        modules: [
+            path.resolve(process.cwd(), 'node_modules'),
+            path.resolve(__dirname, '../node_modules')
+        ],
         extensions: extensions
     },
     module: {
@@ -65,6 +69,12 @@ module.exports = {
             }
         })
     ],
+    resolveLoader: {
+        modules: [
+            path.resolve(process.cwd(), 'node_modules'),
+            path.resolve(__dirname, '../node_modules')
+        ]
+    },
     devServer: {
         port: 3000,
         historyApiFallback: true

@@ -47,7 +47,7 @@ module.exports = {
             { test: /\.html$/, loader: 'html-loader?interpolate' },
             { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: [[require.resolve('babel-preset-es2015'), {modules: false}], require.resolve('babel-preset-es2016')] } },
             { test: /\.jsx$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: [require.resolve('babel-preset-react'), [require.resolve('babel-preset-es2015'), {modules: false}], require.resolve('babel-preset-es2016')] } },
-            { test: /\.tsx?$/, loader: 'ts-loader' },
+            { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
             { test: /\.json$/, loader: 'json-loader' },
             { test: /\.css$/, loader: ExtractTextPlugin.extract({fallback: 'style-loader?sourceMap', use: 'css-loader?sourceMap!postcss-loader?sourceMap'}) },
             { test: /\.sass$/, loader: ExtractTextPlugin.extract({fallback: 'style-loader?sourceMap', use: 'css-loader?sourceMap!postcss-loader?sourceMap!sass-loader?sourceMap'}) },

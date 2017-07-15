@@ -4,7 +4,7 @@
   "description": "A ready to run, zero configuration webpack and webpack-dev-server build tool, without project generation",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -t 10s"
+    "test": "mocha -t 60s"
   },
   "repository": "cybrown/runpack",
   "author": "Cy Brown",

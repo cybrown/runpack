@@ -48,8 +48,8 @@ module.exports = {
     module: {
         rules: [
             { test: /\.html$/, loader: 'html-loader?interpolate' },
-            { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: [[require.resolve('babel-preset-es2015'), {modules: false}], require.resolve('babel-preset-es2016')] } },
-            { test: /\.jsx$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: [require.resolve('babel-preset-react'), [require.resolve('babel-preset-es2015'), {modules: false}], require.resolve('babel-preset-es2016')] } },
+            { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: [[require.resolve('babel-preset-es2015'), {modules: false}], require.resolve('babel-preset-es2016')], plugins: [require.resolve('babel-plugin-transform-class-properties')] } },
+            { test: /\.jsx$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: [require.resolve('babel-preset-react'), [require.resolve('babel-preset-es2015'), {modules: false}], require.resolve('babel-preset-es2016')], plugins: [require.resolve('babel-plugin-transform-class-properties')] } },
             { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
             { test: /\.json$/, loader: 'json-loader' },
             { test: /\.woff2?(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },

@@ -39,6 +39,13 @@ commander
     .version(packageInfo.version)
     .option('-v, --verbose', 'Enable verbose mode');
 
+var proxyRoots = [];
+
+function proxyRootList(proxyRoot) {
+    proxyRoots.push(proxyRoot);
+    return proxyRoots;
+}
+
 commander
     .command('server')
     .alias('s')
@@ -48,7 +55,7 @@ commander
     .option('--ssl', 'Enable HTTPS')
     .option('-e --env <environment>', 'Specify environment, dev or prod', /^(dev|prod)$/i, 'dev')
     .option('--proxy <url>', 'Proxy all unresolved requests to the given url')
-    .option('--proxy-root <url>', 'Base url for proxied requests (mandatory for html history API)')
+    .option('--proxy-root <url>', 'Base url for proxied requests (mandatory for html history API)', proxyRootList)
     .option('-t --test', 'Run tests in watch mode alongside the server')
     .option('--favicon <path>', 'Path to favicon')
     .option('--cheap-sourcemap', 'Enable cheap sourcemaps, faster builds but less precise sourcemaps')

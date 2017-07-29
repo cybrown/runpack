@@ -46,28 +46,43 @@ describe ('server with dev files', function () {
 
     describe ('tests on project1 with proxy and backend api root', function () {
 
-        before(startServer('project1', ['--proxy', 'http://localhost:8080', '--proxy-root', '/backend']));
+        before(startServer('project1', ['--proxy', 'http://localhost:8080', '--proxy-root', '/backend1', '--proxy-root', '/backend2']));
 
         after(stopServer);
 
-        it ('should proxy to a backend api with root', function (done) {
+        it ('should proxy to a backend api with root 1', function (done) {
             var backendResponseBody = 'response from backend';
             var server = http.createServer(function (req, res) {
                 res.end(backendResponseBody);
             }).listen(8080, function (err) {
                 if (err) return done(err);
-                assertResource('/backend/route').then(function (body) {
+                assertResource('/backend1/route').then(function (body) {
                     expect(body).to.equal(backendResponseBody);
-                    server.close();
-                    done();
+                    server.close(done);
                 }).catch(function (err) {
-                    server.close();
-                    done(err);
+                    server.close(() => done(err));
                 });
             });
             server.on('error', function (err) {
-                done(err);
-                server.close();
+                server.close(() => done(err));
+            });
+        });
+
+        it ('should proxy to a backend api with root 2', function (done) {
+            var backendResponseBody = 'response from backend';
+            var server = http.createServer(function (req, res) {
+                res.end(backendResponseBody);
+            }).listen(8080, function (err) {
+                if (err) return done(err);
+                assertResource('/backend2/route').then(function (body) {
+                    expect(body).to.equal(backendResponseBody);
+                    server.close(done);
+                }).catch(function (err) {
+                    server.close(() => done(err));
+                });
+            });
+            server.on('error', function (err) {
+                server.close(() => done(err));
             });
         });
 

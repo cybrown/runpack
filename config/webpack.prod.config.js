@@ -39,7 +39,8 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
                 safe: true
             }
         }),
-        new webpack.HashedModuleIdsPlugin()
+        new webpack.HashedModuleIdsPlugin(),
+        new webpack.optimize.ModuleConcatenationPlugin()
     ]
 });
 

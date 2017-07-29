@@ -174,6 +174,7 @@ describe ('build with production files', function () {
                 .then(body => {
                     expect(/this should be bundled/.test(body)).to.be.ok;
                     expect(/this should not be bundled/.test(body)).to.be.false;
+                    expect(body.length).to.be.below(200);
                 });
         });
     });

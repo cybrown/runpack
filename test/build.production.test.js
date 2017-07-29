@@ -56,6 +56,33 @@ describe ('build with production files', function () {
         });
     });
 
+    describe ('tests on project1 with custom output directory', function () {
+
+        before(runBuild('project1', ['-e', 'prod', '-o', 'target']));
+
+        after(function () {
+            return del(path.resolve(process.cwd(), 'test-samples', 'project1', 'target'));
+        });
+
+        var jsHash = null;
+        var cssHash = null;
+
+        it ('should write index.html', function () {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'project1', 'target', 'index.html'))
+                .then(function (body) {
+                    jsHash = body.match(/bundle\.([a-f0-9\-]{20})\.js/)[1];
+                    cssHash = body.match(/bundle\.([a-f0-9]{32})\.css/)[1];
+                    return body;
+                })
+                .then(assertIndexHtmlBodyMinified);
+        });
+
+        it ('should write bundle.js', function () {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'project1', 'target', 'bundle.' + jsHash + '.js'))
+                .then(assertBundleJsBodyMinified);
+        });
+    });
+
     describe ('tests on favicon', function () {
 
         before(runBuild('favicon', ['-e', 'prod', '--favicon', path.resolve(process.cwd(), 'test-samples', 'favicon', 'images', 'favicon.png')]));

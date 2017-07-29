@@ -61,6 +61,7 @@ commander
     .alias('b')
     .description('Create production files')
     .option('-i, --input <entry>', 'Path to entrypoint, index.js or main.js by default')
+    .option('-o, --output <dir>', 'Directory where to output production files (default is dist)')
     .option('-e --env <environment>', 'Specify environment, dev or prod', /^(dev|prod)$/i, 'prod')
     .option('--favicon <path>', 'Path to favicon')
     .action(commandWrapper('build'));

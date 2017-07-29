@@ -44,6 +44,7 @@ commander
     .alias('s')
     .description('Run development server')
     .option('-p, --port <port>', 'Port for development server')
+    .option('-i, --input <entry>', 'Path to entrypoint, index.js or main.js by default')
     .option('--ssl', 'Enable HTTPS')
     .option('-e --env <environment>', 'Specify environment, dev or prod', /^(dev|prod)$/i, 'dev')
     .option('--proxy <url>', 'Proxy all unresolved requests to the given url')
@@ -59,6 +60,7 @@ commander
     .command('build')
     .alias('b')
     .description('Create production files')
+    .option('-i, --input <entry>', 'Path to entrypoint, index.js or main.js by default')
     .option('-e --env <environment>', 'Specify environment, dev or prod', /^(dev|prod)$/i, 'prod')
     .option('--favicon <path>', 'Path to favicon')
     .action(commandWrapper('build'));
@@ -67,6 +69,7 @@ commander
     .command('package')
     .alias('p')
     .description('Create production package')
+    .option('-i, --input <entry>', 'Path to entrypoint, index.js or main.js by default')
     .option('-t --type [type]', 'Create an archive (zip or tgz), defaults to zip', /^(zip|tgz)$/i, 'zip')
     .option('-e --env <environment>', 'Specify environment, dev or prod', /^(dev|prod)$/i, 'prod')
     .option('--favicon <path>', 'Path to favicon')

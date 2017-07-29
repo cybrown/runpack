@@ -4,7 +4,11 @@ var _ = require('lodash');
 
 var indexFileNames = ['index', 'main'];
 
-module.exports = function findMainScriptFile(currentPackageInfo, supportedExtensions) {
+module.exports = function findMainScriptFile(currentPackageInfo, supportedExtensions, inputFile) {
+    if (inputFile && fs.existsSync(inputFile)) {
+        return inputFile;
+    }
+
     if (currentPackageInfo && currentPackageInfo.main) {
         var possibleMainFilePath = path.resolve(process.cwd(), currentPackageInfo.main);
         if (fs.existsSync(possibleMainFilePath)) {

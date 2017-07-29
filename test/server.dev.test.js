@@ -149,6 +149,29 @@ describe ('server with dev files', function () {
         });
     });
 
+    describe ('tests on project-with-entrypoint for custom entry point from args', function () {
+
+        before(startServer('project-with-entrypoint', ['-i', './src/entrypoint.js']));
+
+        after(stopServer);
+
+        it ('should serve index.html', function () {
+            return assertResource('/')
+                .then(function (body) {
+                    body.match(/bundle\.js/)[1];
+                    expect(body).match(/custom-entrypoint/)
+                    return body;
+                });
+        });
+
+        it ('should serve bundle.js', function () {
+            return assertResource('/bundle.js')
+                .then(function assertBundleJsBody(body) {
+                    expect(body).match(/custom entrypoint/);
+                });
+        });
+    });
+
     describe ('tests on project2', function () {
 
         before(startServer('project2'));

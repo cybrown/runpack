@@ -11,7 +11,8 @@ var findMainScriptFile = require('./lib/find-main-script-file');
 
 var extensions = ['.ts', '.tsx', '.js', '.jsx'];
 var currentPackageInfo = findCurrentPackageInfo();
-var mainScriptFile = findMainScriptFile(currentPackageInfo, extensions);
+var inputPath = process.env.RUNPACK_INPUT;
+var mainScriptFile = findMainScriptFile(currentPackageInfo, extensions, inputPath);
 if (!mainScriptFile) {
     throw new Error('No main javascript file defined');
 }

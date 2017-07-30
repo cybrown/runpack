@@ -61,6 +61,7 @@ commander
     .option('--cheap-sourcemap', 'Enable cheap sourcemaps, faster builds but less precise sourcemaps')
     .option('--hot', 'Enable basic support for hot module replacement')
     .option('--hot-react', 'Enable hot module replacement with react support')
+    .option('-a, --analyze', 'Analyze the bundle and write result in report.html')
     .action(commandWrapper('server'));
 
 commander
@@ -71,6 +72,7 @@ commander
     .option('-o, --output <dir>', 'Directory where to output production files (default is dist)')
     .option('-e --env <environment>', 'Specify environment, dev or prod', /^(dev|prod)$/i, 'prod')
     .option('--favicon <path>', 'Path to favicon')
+    .option('-a, --analyze', 'Analyze the bundle and write result in report.html')
     .action(commandWrapper('build'));
 
 commander

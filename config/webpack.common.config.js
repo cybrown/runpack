@@ -5,6 +5,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var precss = require('precss');
 var autoprefixer = require('autoprefixer');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 var findCurrentPackageInfo = require('./lib/find-current-package-info');
 var findMainScriptFile = require('./lib/find-main-script-file');
@@ -32,7 +33,7 @@ if (process.env.RUNPACK_FAVICON) {
     }
 }
 
-module.exports = {
+var webpackConfig = {
     entry: {
         bundle: mainScriptFile
     },
@@ -81,3 +82,13 @@ module.exports = {
         historyApiFallback: true
     }
 };
+
+if (process.env.RUNPACK_ANALYZE) {
+    webpackConfig.plugins.unshift(new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        reportFilename: 'report.html',
+        openAnalyzer: false
+    }));
+}
+
+module.exports = webpackConfig;

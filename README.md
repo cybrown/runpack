@@ -144,3 +144,4 @@ runpack <command> --help
  * Simple favicon support for dev server, production files and archive
  * Tree shaking (for Typescript, configure es2015 modules in the tsconfig.json file)
  * Hot module replacement (basic support for styles and specific React support)
+ * Dependencies analyzer

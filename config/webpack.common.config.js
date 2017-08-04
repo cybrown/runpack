@@ -45,7 +45,7 @@ const babelConfiguration = {
     ]
 };
 
-const babelConfigurationReact = Object.assign({}, {
+const babelConfigurationReact = Object.assign({}, babelConfiguration, {
     presets: babelConfiguration.presets.concat(require.resolve('babel-preset-react'))
 })
 

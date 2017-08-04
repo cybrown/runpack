@@ -142,6 +142,17 @@ describe ('server with dev files', function () {
         });
     });
 
+    describe ('tests on object-spread', function () {
+
+        before(startServer('object-spread'));
+
+        after(stopServer);
+
+        it ('should serve bundle.js', function () {
+            return assertResource('/bundle.js');
+        });
+    });
+
     describe ('tests on project-with-babel-class-properties', function () {
 
         before(startServer('project-with-babel-class-properties'));

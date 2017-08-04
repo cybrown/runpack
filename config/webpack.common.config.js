@@ -33,6 +33,22 @@ if (process.env.RUNPACK_FAVICON) {
     }
 }
 
+const babelConfiguration = {
+    presets: [
+        [require.resolve('babel-preset-es2015'), {modules: false}],
+        require.resolve('babel-preset-es2016')
+    ],
+    plugins: [
+        require.resolve('babel-plugin-transform-class-properties'),
+        require.resolve('babel-plugin-syntax-dynamic-import'),
+        require.resolve('babel-plugin-transform-object-rest-spread')
+    ]
+};
+
+const babelConfigurationReact = Object.assign({}, {
+    presets: babelConfiguration.presets.concat(require.resolve('babel-preset-react'))
+})
+
 var webpackConfig = {
     entry: {
         bundle: mainScriptFile
@@ -50,8 +66,8 @@ var webpackConfig = {
     module: {
         rules: [
             { test: /\.html$/, loader: 'html-loader?interpolate' },
-            { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: [[require.resolve('babel-preset-es2015'), {modules: false}], require.resolve('babel-preset-es2016')], plugins: [require.resolve('babel-plugin-transform-class-properties'), require.resolve('babel-plugin-syntax-dynamic-import')] } },
-            { test: /\.jsx$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: { presets: [require.resolve('babel-preset-react'), [require.resolve('babel-preset-es2015'), {modules: false}], require.resolve('babel-preset-es2016')], plugins: [require.resolve('babel-plugin-transform-class-properties'), require.resolve('babel-plugin-syntax-dynamic-import')] } },
+            { test: /\.js$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: babelConfiguration },
+            { test: /\.jsx$/, exclude: /(node_modules|bower_components)/, loader: 'babel-loader', query: babelConfigurationReact },
             { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
             { test: /\.json$/, loader: 'json-loader' },
             { test: /\.woff2?(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },

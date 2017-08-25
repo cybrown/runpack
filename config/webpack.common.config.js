@@ -107,4 +107,8 @@ if (process.env.RUNPACK_ANALYZE) {
     }));
 }
 
+if (process.env.RUNPACK_DISABLE_HOST_CHECK) {
+    webpackConfig.devServer.disableHostCheck = true;
+}
+
 module.exports = webpackConfig;

@@ -62,6 +62,7 @@ commander
     .option('--hot', 'Enable basic support for hot module replacement')
     .option('--hot-react', 'Enable hot module replacement with react support')
     .option('-a, --analyze', 'Analyze the bundle and write result in report.html')
+    .option('--disable-host-check', 'Disable webpack dev server host check to access your site from another host')
     .action(commandWrapper('server'));
 
 commander

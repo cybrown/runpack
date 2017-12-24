@@ -3,8 +3,6 @@ var path = require('path');
 
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var precss = require('precss');
-var autoprefixer = require('autoprefixer');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 var findCurrentPackageInfo = require('./lib/find-current-package-info');
@@ -78,14 +76,7 @@ var webpackConfig = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin(webpackHtmlOptions),
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                postcss: function () {
-                    return [precss, autoprefixer];
-                }
-            }
-        })
+        new HtmlWebpackPlugin(webpackHtmlOptions)
     ],
     resolveLoader: {
         modules: [

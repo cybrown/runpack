@@ -1,5 +1,6 @@
 var mergeWebpackConfig = require('webpack-config-merger');
 var webpack = require('webpack');
+var postcssConfig = require('./postcss.config.js');
 
 var sourceMapConfiguration = 'source-map';
 
@@ -14,10 +15,101 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
     },
     module: {
         rules: [
-            { test: /\.css$/, loader: 'style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap' },
-            { test: /\.sass$/, loader: 'style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap!sass-loader?sourceMap' },
-            { test: /\.scss$/, loader: 'style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap!sass-loader?sourceMap' },
-            { test: /\.less$/, loader: 'style-loader?sourceMap!css-loader?sourceMap!postcss-loader?sourceMap!less-loader?sourceMap' },
+            {
+                test: /\.css$/,
+                use: [{
+                    loader: 'style-loader',
+                    options: {
+                        sourceMaps: true
+                    }
+                }, {
+                    loader: 'css-loader',
+                    options: {
+                        sourceMaps: true
+                    }
+                }, {
+                    loader: 'postcss-loader',
+                    options: {
+                        sourceMaps: true,
+                        plugins: postcssConfig
+                    }
+                }]
+            },
+            {
+                test: /\.sass$/,
+                use: [{
+                    loader: 'style-loader',
+                    options: {
+                        sourceMaps: true
+                    }
+                }, {
+                    loader: 'css-loader',
+                    options: {
+                        sourceMaps: true
+                    }
+                }, {
+                    loader: 'postcss-loader',
+                    options: {
+                        sourceMaps: true,
+                        plugins: postcssConfig
+                    }
+                }, {
+                    loader: 'sass-loader',
+                    options: {
+                        sourceMaps: true
+                    }
+                }]
+            },
+            {
+                test: /\.scss$/,
+                use: [{
+                    loader: 'style-loader',
+                    options: {
+                        sourceMaps: true
+                    }
+                }, {
+                    loader: 'css-loader',
+                    options: {
+                        sourceMaps: true
+                    }
+                }, {
+                    loader: 'postcss-loader',
+                    options: {
+                        sourceMaps: true,
+                        plugins: postcssConfig
+                    }
+                }, {
+                    loader: 'sass-loader',
+                    options: {
+                        sourceMaps: true
+                    }
+                }]
+            },
+            {
+                test: /\.less$/,
+                use: [{
+                    loader: 'style-loader',
+                    options: {
+                        sourceMaps: true
+                    }
+                }, {
+                    loader: 'css-loader',
+                    options: {
+                        sourceMaps: true
+                    }
+                }, {
+                    loader: 'postcss-loader',
+                    options: {
+                        sourceMaps: true,
+                        plugins: postcssConfig
+                    }
+                }, {
+                    loader: 'less-loader',
+                    options: {
+                        sourceMaps: true
+                    }
+                }]
+            },
         ]
     },
     devtool: sourceMapConfiguration,

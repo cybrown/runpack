@@ -3,6 +3,7 @@ var mergeWebpackConfig = require('webpack-config-merger');
 var WebpackStableModuleIdAndHash = require('webpack-stable-module-id-and-hash');
 var OptimizeCssAssetsPlugin  = require('optimize-css-assets-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var postcssConfig = require('./postcss.config.js');
 
 var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config'), {
     output: {
@@ -10,10 +11,68 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
     },
     module: {
         rules: [
-            { test: /\.css$/, loader: ExtractTextPlugin.extract({fallback: 'style-loader?sourceMap', use: 'css-loader?sourceMap!postcss-loader?sourceMap'}) },
-            { test: /\.sass$/, loader: ExtractTextPlugin.extract({fallback: 'style-loader?sourceMap', use: 'css-loader?sourceMap!postcss-loader?sourceMap!sass-loader?sourceMap'}) },
-            { test: /\.scss$/, loader: ExtractTextPlugin.extract({fallback: 'style-loader?sourceMap', use: 'css-loader?sourceMap!postcss-loader?sourceMap!sass-loader?sourceMap'}) },
-            { test: /\.less$/, loader: ExtractTextPlugin.extract({fallback: 'style-loader?sourceMap', use: 'css-loader?sourceMap!postcss-loader?sourceMap!less-loader?sourceMap'}) },
+            {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader?sourceMap',
+                    use: [{
+                        loader: 'css-loader'
+                    }, {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: postcssConfig
+                        }
+                    }]
+                })
+            },
+            {
+                test: /\.sass$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader?sourceMap',
+                    use: [{
+                        loader: 'css-loader'
+                    }, {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: postcssConfig
+                        }
+                    }, {
+                        loader: 'sass-loader'
+                    }]
+                })
+            },
+            {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader?sourceMap',
+                    use: [{
+                        loader: 'css-loader'
+                    }, {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: postcssConfig
+                        }
+                    }, {
+                        loader: 'sass-loader'
+                    }]
+                })
+            },
+            {
+                test: /\.less$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader?sourceMap',
+                    use: [{
+                        loader: 'css-loader'
+                    }, {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: postcssConfig
+                        }
+                    }, {
+                        loader: 'less-loader'
+                    }]
+                })
+            },
         ]
     },
     plugins: [

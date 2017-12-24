@@ -125,7 +125,6 @@ runpack <command> --help
  * No lock-in with the "eject" command
  * No configuration generation
  * No complicated conventions (having one main script file is enough)
- * Developpment server with livereload
  * ES2016 (and JSX) with Babel
  * TypeScript
  * CSS preprocessors (Sass and Less)
@@ -136,7 +135,7 @@ runpack <command> --help
  * Watch mode for tests
  * Generate tests reports for CI tools
  * Generate code coverage
- * Create zip ou tar.gz archives
+ * Create zip or tar.gz archives
  * Works with any framework installable via npm, such as angular.js, angular2 or react
  * Uses hashes for cache-busting
  * History API fallback enabled by default

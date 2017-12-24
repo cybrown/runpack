@@ -63,7 +63,6 @@
     "webpack-bundle-analyzer": "^2.8.3",
     "webpack-config-merger": "^0.1.0",
     "webpack-dev-server": "^2.6.1",
-    "webpack-livereload-plugin": "^0.11.0",
     "webpack-stable-module-id-and-hash": "^1.0.5",
     "winston": "^2.3.1"
   },

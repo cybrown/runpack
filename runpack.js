@@ -24,6 +24,7 @@ function commandWrapper(commandName) {
         var command = require('./lib/commands/' + commandName);
         commandCalled = true;
         if (commander.verbose) {
+            process.env.RUNPACK_VERBOSE = 'TRUE';
             logger.transports.console.level = 'verbose';
         }
         logger.verbose('Verbose mode enabled');

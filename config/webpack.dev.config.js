@@ -117,6 +117,11 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
         new webpack.LoaderOptionsPlugin({
             debug: true
         }),
-        new webpack.NamedModulesPlugin()
+        new webpack.NamedModulesPlugin(),
+        ...(!process.env.RUNPACK_VERBOSE ? [new webpack.ProgressPlugin()] : []),
     ]
 });
+
+if (!process.env.RUNPACK_VERBOSE) {
+    module.exports.devServer.noInfo = true;
+}

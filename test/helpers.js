@@ -94,7 +94,7 @@ function startServer(projectName, args) {
                 throw new Error('Webpack process is already running');
             }
             process.chdir(path.join('test-samples', projectName));
-            childWebpackServerProcess = spawn('node', [binPath, 'server'].concat(args));
+            childWebpackServerProcess = spawn('node', [binPath, 'server', '--verbose'].concat(args));
             childWebpackServerProcess.stdout.on('data', function (data) {
                 if (/webpack: Compiled successfully\./.test(data.toString('utf-8'))) {
                     resolve();

@@ -3,6 +3,7 @@ var mergeWebpackConfig = require('webpack-config-merger');
 var OptimizeCssAssetsPlugin  = require('optimize-css-assets-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var postcssConfig = require('./postcss.config.js');
+var babelConf = require('./babel.conf');
 
 var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config'), {
     output: {
@@ -71,6 +72,16 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
                         loader: 'less-loader'
                     }]
                 })
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                query: babelConf.babelConfiguration
+            },
+            {
+                test: /\.jsx$/,
+                loader: 'babel-loader',
+                query: babelConf.babelConfigurationReact
             },
         ]
     },

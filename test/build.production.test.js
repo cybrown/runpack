@@ -230,4 +230,24 @@ describe ('build with production files', function () {
                 });
         });
     });
+
+    describe ('ES6 dependencies', function () {
+
+        before(runBuild('project-with-es6-dep', ['-e', 'prod']));
+
+        after(() => del(path.resolve(process.cwd(), 'test-samples', 'project-with-es6-dep', 'dist')));
+
+        var vendorJsHash = null;
+
+        it('should transpile es6 dependencies for production', () => {
+            return assertFile(path.resolve(process.cwd(), 'test-samples', 'project-with-es6-dep', 'dist', 'index.html'))
+                .then(body => {
+                    vendorJsHash = body.match(/vendor\.([a-f0-9\-]{20})\.js/)[1];
+                    return assertFile(path.resolve(process.cwd(), 'test-samples', 'project-with-es6-dep', 'dist', 'vendor.' + vendorJsHash + '.js'));
+                })
+                .then(body => {
+                    expect(/console\.log\(["']this is a dummy dependency["']\)/.test(body)).to.be.ok;
+                });
+        });
+    });
 });

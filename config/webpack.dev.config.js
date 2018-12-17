@@ -1,6 +1,7 @@
 var mergeWebpackConfig = require('webpack-config-merger');
 var webpack = require('webpack');
 var postcssConfig = require('./postcss.config.js');
+var babelConf = require('./babel.conf');
 
 var sourceMapConfiguration = 'source-map';
 
@@ -109,6 +110,18 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                         sourceMaps: true
                     }
                 }]
+            },
+            {
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                loader: 'babel-loader',
+                query: babelConf.babelConfiguration
+            },
+            {
+                test: /\.jsx$/,
+                exclude: /(node_modules|bower_components)/,
+                loader: 'babel-loader',
+                query: babelConf.babelConfigurationReact
             },
         ]
     },

@@ -3,6 +3,7 @@ var path = require('path');
 
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var Dotenv = require('dotenv-webpack');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 var findCurrentPackageInfo = require('./lib/find-current-package-info');
@@ -76,7 +77,10 @@ var webpackConfig = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin(webpackHtmlOptions)
+        new HtmlWebpackPlugin(webpackHtmlOptions),
+        new Dotenv({
+            systemvars: true
+        })
     ],
     resolveLoader: {
         modules: [

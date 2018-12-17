@@ -83,7 +83,7 @@ function runCli(binPath, args) {
 
 var childWebpackServerProcess = null;
 
-function startServer(projectName, args) {
+function startServer(projectName, args, env) {
     args = args || [];
     var packageJson = require(path.resolve(process.cwd(), 'package.json'));
     var originalCwd = process.cwd();
@@ -94,7 +94,9 @@ function startServer(projectName, args) {
                 throw new Error('Webpack process is already running');
             }
             process.chdir(path.join('test-samples', projectName));
-            childWebpackServerProcess = spawn('node', [binPath, 'server', '--verbose'].concat(args));
+            childWebpackServerProcess = spawn('node', [binPath, 'server', '--verbose'].concat(args), {
+                env: Object.assign({}, process.env, env)
+            });
             childWebpackServerProcess.stdout.on('data', function (data) {
                 if (/webpack: Compiled successfully\./.test(data.toString('utf-8'))) {
                     resolve();

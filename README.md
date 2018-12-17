@@ -144,3 +144,4 @@ runpack <command> --help
  * Tree shaking (for Typescript, configure es2015 modules in the tsconfig.json file)
  * Hot module replacement (basic support for styles and specific React support)
  * Dependencies analyzer
+ * Use both environment variables and .env files

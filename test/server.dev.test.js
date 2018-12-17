@@ -304,4 +304,42 @@ describe ('server with dev files', function () {
                 .then(body => expect(body).to.match(/\'\\A\'/));
         });
     });
+
+    describe ('Environment', function () {
+
+        before(startServer('environment', [], {
+            API_ROOT_ENV: 'https://www.example.com/api/env',
+            API_ROOT_BOTH: 'https://www.example.com/api/both_env',
+        }));
+
+        after(stopServer);
+
+        it ('should get an environment variable from a .env file', function () {
+            return assertResource('/bundle.js')
+                .then(function (body) {
+                    expect(body).match(/console\.log\(["']https:\/\/www\.example\.com\/api\/file["']\)/);
+                });
+        });
+
+        it ('should get an environment variable from the environment variables', function () {
+            return assertResource('/bundle.js')
+                .then(function (body) {
+                    expect(body).match(/console\.log\(["']https:\/\/www\.example\.com\/api\/env["']\)/);
+                });
+        });
+
+        it ('should get an environment variable from the environment variables if present in both', function () {
+            return assertResource('/bundle.js')
+                .then(function (body) {
+                    expect(body).match(/console\.log\(["']https:\/\/www\.example\.com\/api\/both_env["']\)/);
+                });
+        });
+
+        it ('should not get an environment variable from the .env file if present in both', function () {
+            return assertResource('/bundle.js')
+                .then(function (body) {
+                    expect(body).not.match(/console\.log\(["']https:\/\/www\.example\.com\/api\/both_file["']\)/);
+                });
+        });
+    });
 });

@@ -1,6 +1,5 @@
 var webpack = require('webpack');
 var mergeWebpackConfig = require('webpack-config-merger');
-var WebpackStableModuleIdAndHash = require('webpack-stable-module-id-and-hash');
 var OptimizeCssAssetsPlugin  = require('optimize-css-assets-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var postcssConfig = require('./postcss.config.js');

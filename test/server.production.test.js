@@ -28,7 +28,7 @@ describe ('server with production files', function () {
             return assertResource('/')
                 .then(function (body) {
                     jsHash = body.match(/bundle\.([a-f0-9\-]{20})\.js/)[1];
-                    cssHash = body.match(/bundle\.([a-f0-9]{32})\.css/)[1];
+                    cssHash = body.match(/bundle\.([a-f0-9]{20})\.css/)[1];
                     return body;
                 })
                 .then(assertIndexHtmlBodyMinified);
@@ -64,7 +64,7 @@ describe ('server with production files', function () {
         it ('should serve index.html', function () {
             return assertResource('/')
                 .then(function (body) {
-                    cssHash = body.match(/vendor\.([a-f0-9]{32})\.css/)[1];
+                    cssHash = body.match(/vendor\.([a-f0-9]{20})\.css/)[1];
                     return body;
                 });
         });
@@ -87,7 +87,7 @@ describe ('server with production files', function () {
             return assertResource('/')
                 .then(function (body) {
                     expect(body).match(/^<!DOCTYPE html>/);
-                    cssHash = body.match(/bundle\.([a-f0-9]{32})\.css/)[1];
+                    cssHash = body.match(/bundle\.([a-f0-9]{20})\.css/)[1];
                 });
         });
 
@@ -97,7 +97,7 @@ describe ('server with production files', function () {
                     expect(body).match(/body h1{/);
                     expect(body).match(/background-color:red/);
                     expect(body).match(/body h2{/);
-                    expect(body).match(/background-color:blue/);
+                    expect(body).match(/background-color:#00f/);
                 });
         });
     });

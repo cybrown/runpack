@@ -1,8 +1,9 @@
 language: node_js
 node_js:
-- '6'
-- '7'
 - '8'
+- '9'
+- '10'
+- '11'
 cache: yarn
 deploy:
   provider: npm
@@ -12,4 +13,4 @@ deploy:
   on:
     tags: true
     branch: master
-    node: '6'
+    node: '8'

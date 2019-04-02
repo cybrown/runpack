@@ -14,6 +14,7 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
         devtoolModuleFilenameTemplate: "[resource]",
         devtoolFallbackModuleFilenameTemplate: "[resource]?[hash]"
     },
+    mode: 'development',
     module: {
         rules: [
             {
@@ -21,17 +22,17 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                 use: [{
                     loader: 'style-loader',
                     options: {
-                        sourceMaps: true
+                        sourceMap: true
                     }
                 }, {
                     loader: 'css-loader',
                     options: {
-                        sourceMaps: true
+                        sourceMap: true
                     }
                 }, {
                     loader: 'postcss-loader',
                     options: {
-                        sourceMaps: true,
+                        sourceMap: true,
                         plugins: postcssConfig
                     }
                 }]
@@ -41,23 +42,23 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                 use: [{
                     loader: 'style-loader',
                     options: {
-                        sourceMaps: true
+                        sourceMap: true
                     }
                 }, {
                     loader: 'css-loader',
                     options: {
-                        sourceMaps: true
+                        sourceMap: true
                     }
                 }, {
                     loader: 'postcss-loader',
                     options: {
-                        sourceMaps: true,
+                        sourceMap: true,
                         plugins: postcssConfig
                     }
                 }, {
                     loader: 'sass-loader',
                     options: {
-                        sourceMaps: true
+                        sourceMap: true
                     }
                 }]
             },
@@ -66,23 +67,23 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                 use: [{
                     loader: 'style-loader',
                     options: {
-                        sourceMaps: true
+                        sourceMap: true
                     }
                 }, {
                     loader: 'css-loader',
                     options: {
-                        sourceMaps: true
+                        sourceMap: true
                     }
                 }, {
                     loader: 'postcss-loader',
                     options: {
-                        sourceMaps: true,
+                        sourceMap: true,
                         plugins: postcssConfig
                     }
                 }, {
                     loader: 'sass-loader',
                     options: {
-                        sourceMaps: true
+                        sourceMap: true
                     }
                 }]
             },
@@ -91,23 +92,23 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                 use: [{
                     loader: 'style-loader',
                     options: {
-                        sourceMaps: true
+                        sourceMap: true
                     }
                 }, {
                     loader: 'css-loader',
                     options: {
-                        sourceMaps: true
+                        sourceMap: true
                     }
                 }, {
                     loader: 'postcss-loader',
                     options: {
-                        sourceMaps: true,
+                        sourceMap: true,
                         plugins: postcssConfig
                     }
                 }, {
                     loader: 'less-loader',
                     options: {
-                        sourceMaps: true
+                        sourceMap: true
                     }
                 }]
             },

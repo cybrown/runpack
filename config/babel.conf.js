@@ -1,17 +1,14 @@
 var babelConfiguration = {
     presets: [
-        [require.resolve('babel-preset-es2015'), {modules: false}],
-        require.resolve('babel-preset-es2016')
+        [require.resolve('@babel/preset-env'), {modules: false}],
     ],
     plugins: [
-        require.resolve('babel-plugin-transform-class-properties'),
-        require.resolve('babel-plugin-syntax-dynamic-import'),
-        require.resolve('babel-plugin-transform-object-rest-spread')
+        require.resolve('@babel/plugin-proposal-class-properties'),
     ]
 };
 
 var babelConfigurationReact = Object.assign({}, babelConfiguration, {
-    presets: babelConfiguration.presets.concat(require.resolve('babel-preset-react'))
+    presets: babelConfiguration.presets.concat(require.resolve('@babel/preset-react'))
 });
 
 module.exports.babelConfiguration = babelConfiguration;

@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 var mergeWebpackConfig = require('webpack-config-merger');
 var OptimizeCssAssetsPlugin  = require('optimize-css-assets-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var postcssConfig = require('./postcss.config.js');
 var babelConf = require('./babel.conf');
 
@@ -9,69 +9,85 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
     output: {
         filename: '[name].[chunkhash].js'
     },
+    mode: 'production',
     module: {
         rules: [
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader?sourceMap',
-                    use: [{
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    {
                         loader: 'css-loader'
-                    }, {
+                    },
+                    {
                         loader: 'postcss-loader',
                         options: {
                             plugins: postcssConfig
                         }
-                    }]
-                })
+                    }
+                ]
             },
             {
                 test: /\.sass$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader?sourceMap',
-                    use: [{
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    {
                         loader: 'css-loader'
-                    }, {
+                    },
+                    {
                         loader: 'postcss-loader',
                         options: {
                             plugins: postcssConfig
                         }
-                    }, {
+                    },
+                    {
                         loader: 'sass-loader'
-                    }]
-                })
+                    }
+                ]
             },
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader?sourceMap',
-                    use: [{
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
+                    {
                         loader: 'css-loader'
-                    }, {
+                    },
+                    {
                         loader: 'postcss-loader',
                         options: {
                             plugins: postcssConfig
                         }
-                    }, {
+                    },
+                    {
                         loader: 'sass-loader'
-                    }]
-                })
+                    }
+                ]
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: 'style-loader?sourceMap',
-                    use: [{
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    {
                         loader: 'css-loader'
-                    }, {
+                    },
+                    {
                         loader: 'postcss-loader',
                         options: {
                             plugins: postcssConfig
                         }
-                    }, {
+                    },
+                    {
                         loader: 'less-loader'
-                    }]
-                })
+                    }
+                ]
             },
             {
                 test: /\.js$/,
@@ -86,21 +102,13 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
         ]
     },
     plugins: [
-        new ExtractTextPlugin({
+        new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
             allChunks: true
         }),
-        new webpack.optimize.UglifyJsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
-            }
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: function(module, count) {
-                const userRequest = module.userRequest;
-                return userRequest && /[\\/]node_modules[\\/]/.test(userRequest);
             }
         }),
         new OptimizeCssAssetsPlugin({
@@ -110,7 +118,19 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
         }),
         new webpack.HashedModuleIdsPlugin(),
         new webpack.optimize.ModuleConcatenationPlugin()
-    ]
+    ],
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    chunks: 'initial',
+                    name: 'vendor',
+                    test: /[\\/]node_modules[\\/]/,
+                    enforce: true,
+                }
+            }
+        }
+    }
 });
 
 module.exports = webpackConfiguration;

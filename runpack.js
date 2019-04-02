@@ -11,13 +11,12 @@ notifier.notify();
 
 var commandCalled = false;
 
-var logger = new (winston.Logger)({
+var logger = winston.createLogger({
+    format: winston.format.cli(),
     transports: [
       new winston.transports.Console()
     ]
 });
-
-logger.cli();
 
 function commandWrapper(commandName) {
     return function (params) {
@@ -25,7 +24,7 @@ function commandWrapper(commandName) {
         commandCalled = true;
         if (commander.verbose) {
             process.env.RUNPACK_VERBOSE = 'TRUE';
-            logger.transports.console.level = 'verbose';
+            logger.transports[0].level = 'verbose';
         }
         logger.verbose('Verbose mode enabled');
         if (params.env) {

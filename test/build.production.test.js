@@ -31,7 +31,7 @@ describe ('build with production files', function () {
             return assertFile(path.resolve(process.cwd(), 'test-samples', 'project1', 'dist', 'index.html'))
                 .then(function (body) {
                     jsHash = body.match(/bundle\.([a-f0-9\-]{20})\.js/)[1];
-                    cssHash = body.match(/bundle\.([a-f0-9]{32})\.css/)[1];
+                    cssHash = body.match(/bundle\.([a-f0-9]{20})\.css/)[1];
                     return body;
                 })
                 .then(assertIndexHtmlBodyMinified);
@@ -71,7 +71,7 @@ describe ('build with production files', function () {
             return assertFile(path.resolve(process.cwd(), 'test-samples', 'project1', 'target', 'index.html'))
                 .then(function (body) {
                     jsHash = body.match(/bundle\.([a-f0-9\-]{20})\.js/)[1];
-                    cssHash = body.match(/bundle\.([a-f0-9]{32})\.css/)[1];
+                    cssHash = body.match(/bundle\.([a-f0-9]{20})\.css/)[1];
                     return body;
                 })
                 .then(assertIndexHtmlBodyMinified);
@@ -131,8 +131,8 @@ describe ('build with production files', function () {
                 .then(body => {
                     bundleJsHash = body.match(/bundle\.([a-f0-9\-]{20})\.js/)[1];
                     vendorJsHash = body.match(/vendor\.([a-f0-9\-]{20})\.js/)[1];
-                    bundleCssHash = body.match(/bundle\.([a-f0-9]{32})\.css/)[1];
-                    vendorCssHash = body.match(/vendor\.([a-f0-9]{32})\.css/)[1];
+                    bundleCssHash = body.match(/bundle\.([a-f0-9]{20})\.css/)[1];
+                    vendorCssHash = body.match(/vendor\.([a-f0-9]{20})\.css/)[1];
                     return body;
                 });
         });
@@ -169,7 +169,7 @@ describe ('build with production files', function () {
         it ('should emit index.html', () => {
             return assertFile(path.resolve(process.cwd(), 'test-samples', 'escape-css', 'dist', 'index.html'))
                 .then(body => {
-                    bundleCssHash = body.match(/bundle\.([a-f0-9]{32})\.css/)[1];
+                    bundleCssHash = body.match(/bundle\.([a-f0-9]{20})\.css/)[1];
                     return body;
                 });
         });
@@ -201,7 +201,7 @@ describe ('build with production files', function () {
                 .then(body => {
                     expect(/this should be bundled/.test(body)).to.be.ok;
                     expect(/this should not be bundled/.test(body)).to.be.false;
-                    expect(body.length).to.be.below(200);
+                    expect(body.length).to.be.below(1000);
                 });
         });
     });

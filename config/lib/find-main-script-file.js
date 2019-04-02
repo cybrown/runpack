@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('lodash');
 
-var indexFileNames = ['index', 'main'];
+var indexFileNames = ['index', 'main', 'src/index'];
 
 module.exports = function findMainScriptFile(currentPackageInfo, supportedExtensions, inputFile) {
     if (inputFile && fs.existsSync(inputFile)) {

@@ -18,6 +18,8 @@ You may also use it as a dev dependency.
 
 Create an index.js or main.js file at the root of your project. You may also use .jsx, .ts or .tsx.
 
+Like with webpack, the index file (with any supported extension) can be located inside the src directory (main is not supported though).
+
 A package.json is not necessary, but if present and the main field is an existing file, it will be used as the entry point.
 
 An index.html file is not mandatory, but if one is found next to the main file, it will be used.

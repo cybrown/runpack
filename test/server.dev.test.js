@@ -142,6 +142,40 @@ describe ('server with dev files', function () {
         });
     });
 
+    describe ('tests on project1 with src folder', function () {
+
+        before(startServer('project1-src'));
+
+        after(stopServer);
+
+        it ('should serve index.html', function () {
+            return assertResource('/')
+                .then(function (body) {
+                    body.match(/bundle\.js/)[1];
+                    return body;
+                })
+                .then(assertIndexHtmlBody);
+        });
+
+        it ('should serve index.html from another route', function () {
+            return assertHtmlResource('/other/route')
+                .then(function (body) {
+                    body.match(/bundle\.js/)[1];
+                    return body;
+                })
+                .then(assertIndexHtmlBody);
+        });
+
+        it ('should serve bundle.js', function () {
+            return assertResource('/bundle.js')
+                .then(assertBundleJsBody);
+        });
+
+        it ('should serve bundle.js.map', function () {
+            return assertResource('/bundle.js.map');
+        });
+    });
+
     describe ('tests on object-spread', function () {
 
         before(startServer('object-spread'));

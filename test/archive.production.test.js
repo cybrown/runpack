@@ -5,7 +5,7 @@ var assertStyleCssBodyMinified = require('./helpers').assertStyleCssBodyMinified
 var runPackage = require('./helpers').runPackage;
 var path = require('path');
 var del = require('del');
-var unzip = require('unzip');
+var unzipper = require('unzipper');
 var fs = require('fs');
 var MemoryStream = require('memory-stream');
 var expect = require('chai').expect;
@@ -29,7 +29,7 @@ describe ('package zip with production files', function () {
         before (function (done) {
             setTimeout(function () {
                 fs.createReadStream(path.resolve(process.cwd(), 'package.zip'))
-                    .pipe(unzip.Parse())
+                    .pipe(unzipper.Parse())
                     .on('error', done)
                     .on('entry', function (entry) {
                         var ws = new MemoryStream();
@@ -84,7 +84,7 @@ describe ('package zip with production files', function () {
         before (function (done) {
             setTimeout(function () {
                 fs.createReadStream(path.resolve(process.cwd(), 'package.zip'))
-                    .pipe(unzip.Parse())
+                    .pipe(unzipper.Parse())
                     .on('error', done)
                     .on('entry', function (entry) {
                         var ws = new MemoryStream();
@@ -131,7 +131,7 @@ describe ('package zip with production files', function () {
         before (function (done) {
             setTimeout(function () {
                 fs.createReadStream(path.resolve(process.cwd(), 'package.zip'))
-                    .pipe(unzip.Parse())
+                    .pipe(unzipper.Parse())
                     .on('error', done)
                     .on('entry', function (entry) {
                         var ws = new MemoryStream();

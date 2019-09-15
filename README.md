@@ -119,7 +119,7 @@ runpack <command> --help
 ## Supported plateforms
 
  * Windows, Linux, macOS.
- * Nodejs >= 6.0.
+ * Nodejs >= 10.0.
 
 ## Features
 

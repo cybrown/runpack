@@ -21,9 +21,6 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                 test: /\.css$/,
                 use: [{
                     loader: 'style-loader',
-                    options: {
-                        sourceMap: true
-                    }
                 }, {
                     loader: 'css-loader',
                     options: {
@@ -41,9 +38,6 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                 test: /\.sass$/,
                 use: [{
                     loader: 'style-loader',
-                    options: {
-                        sourceMap: true
-                    }
                 }, {
                     loader: 'css-loader',
                     options: {
@@ -66,9 +60,6 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                 test: /\.scss$/,
                 use: [{
                     loader: 'style-loader',
-                    options: {
-                        sourceMap: true
-                    }
                 }, {
                     loader: 'css-loader',
                     options: {
@@ -91,9 +82,6 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                 test: /\.less$/,
                 use: [{
                     loader: 'style-loader',
-                    options: {
-                        sourceMap: true
-                    }
                 }, {
                     loader: 'css-loader',
                     options: {

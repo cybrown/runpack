@@ -94,7 +94,7 @@ describe ('build with production files', function () {
         it ('should emit a favicon', () => {
             return assertFile(path.resolve(process.cwd(), 'test-samples', 'favicon', 'dist', 'index.html'))
                 .then(function (body) {
-                    expect(body).to.match(/<link rel="shortcut icon" href="favicon\.png"><\/head>/);
+                    expect(body).to.match(/<link rel="shortcut icon" href="\/favicon\.png"><\/head>/);
                 });
         });
     });
@@ -110,7 +110,7 @@ describe ('build with production files', function () {
         it ('should emit a favicon', () => {
             return assertFile(path.resolve(process.cwd(), 'test-samples', 'favicon-default', 'dist', 'index.html'))
                 .then(function (body) {
-                    expect(body).to.match(/<link rel="shortcut icon" href="favicon\.png"><\/head>/);
+                    expect(body).to.match(/<link rel="shortcut icon" href="\/favicon\.png"><\/head>/);
                 });
         });
     });
@@ -201,7 +201,7 @@ describe ('build with production files', function () {
                 .then(body => {
                     expect(/this should be bundled/.test(body)).to.be.ok;
                     expect(/this should not be bundled/.test(body)).to.be.false;
-                    expect(body.length).to.be.below(1000);
+                    expect(body.length).to.be.below(1001);
                 });
         });
     });

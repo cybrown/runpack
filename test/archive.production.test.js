@@ -113,7 +113,7 @@ describe ('package zip with production files', function () {
         });
 
         it ('should archive index.html', function () {
-            expect(indexHtmlContent).to.match(/<link rel="shortcut icon" href="favicon\.png"><\/head>/);
+            expect(indexHtmlContent).to.match(/<link rel="shortcut icon" href="\/favicon\.png"><\/head>/);
         });
 
         it ('should archive favicon.png', function () {
@@ -160,7 +160,7 @@ describe ('package zip with production files', function () {
         });
 
         it ('should archive index.html', function () {
-            expect(indexHtmlContent).to.match(/<link rel="shortcut icon" href="favicon\.png"><\/head>/);
+            expect(indexHtmlContent).to.match(/<link rel="shortcut icon" href="\/favicon\.png"><\/head>/);
         });
 
         it ('should archive favicon.png', function () {

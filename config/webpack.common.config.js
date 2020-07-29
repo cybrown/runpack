@@ -37,7 +37,8 @@ var webpackConfig = {
         bundle: mainScriptFile
     },
     output: {
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: '/',
     },
     resolve: {
         modules: [

@@ -308,7 +308,7 @@ describe ('server with dev files', function () {
         it ('should include a favicon', function () {
             return assertResource('/')
                 .then(body => {
-                    expect(body).to.match(/<link rel="shortcut icon" href="favicon\.png"><\/head>/);
+                    expect(body).to.match(/<link rel="shortcut icon" href="\/favicon\.png"><\/head>/);
                 });
         });
     });
@@ -322,7 +322,7 @@ describe ('server with dev files', function () {
         it ('should include a favicon', function () {
             return assertResource('/')
                 .then(body => {
-                    expect(body).to.match(/<link rel="shortcut icon" href="favicon\.png"><\/head>/);
+                    expect(body).to.match(/<link rel="shortcut icon" href="\/favicon\.png"><\/head>/);
                 });
         });
     });

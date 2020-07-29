@@ -32,13 +32,13 @@ function assertResourceInternal(options, statusCode) {
 
 function assertIndexHtmlBody(body) {
     expect(body).match(/^<!DOCTYPE html>/);
-    expect(body).match(/<script type="text\/javascript" src="bundle\.js"><\/script>/);
+    expect(body).match(/<script type="text\/javascript" src="\/bundle\.js"><\/script>/);
 }
 
 function assertIndexHtmlBodyMinified(body) {
     expect(body).match(/^<!DOCTYPE html>/);
-    expect(body).match(/<link href="bundle\.[a-f0-9]{20}\.css" rel="stylesheet">/);
-    expect(body).match(/<script type="text\/javascript" src="bundle\.[a-f0-9\-]{20}\.js"><\/script>/);
+    expect(body).match(/<link href="\/bundle\.[a-f0-9]{20}\.css" rel="stylesheet">/);
+    expect(body).match(/<script type="text\/javascript" src="\/bundle\.[a-f0-9\-]{20}\.js"><\/script>/);
 }
 
 function assertBundleJsBody(body) {

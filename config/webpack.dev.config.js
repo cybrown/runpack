@@ -30,7 +30,7 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                     loader: 'postcss-loader',
                     options: {
                         sourceMap: true,
-                        plugins: postcssConfig
+                        postcssOptions: postcssConfig
                     }
                 }]
             },
@@ -47,7 +47,7 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                     loader: 'postcss-loader',
                     options: {
                         sourceMap: true,
-                        plugins: postcssConfig
+                        postcssOptions: postcssConfig
                     }
                 }, {
                     loader: 'sass-loader',
@@ -69,7 +69,7 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                     loader: 'postcss-loader',
                     options: {
                         sourceMap: true,
-                        plugins: postcssConfig
+                        postcssOptions: postcssConfig
                     }
                 }, {
                     loader: 'sass-loader',
@@ -91,7 +91,7 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                     loader: 'postcss-loader',
                     options: {
                         sourceMap: true,
-                        plugins: postcssConfig
+                        postcssOptions: postcssConfig
                     }
                 }, {
                     loader: 'less-loader',
@@ -104,13 +104,13 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel-loader',
-                query: babelConf.babelConfiguration
+                options: babelConf.babelConfiguration
             },
             {
                 test: /\.jsx$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'babel-loader',
-                query: babelConf.babelConfigurationReact
+                options: babelConf.babelConfigurationReact
             },
         ]
     },
@@ -119,7 +119,6 @@ module.exports = mergeWebpackConfig(require('./webpack.common.config'), {
         new webpack.LoaderOptionsPlugin({
             debug: true
         }),
-        new webpack.NamedModulesPlugin(),
         ...(!process.env.RUNPACK_VERBOSE ? [new webpack.ProgressPlugin()] : []),
     ]
 });

@@ -2,6 +2,8 @@ language: node_js
 node_js:
 - '10'
 - '12'
+- '14'
+- '15'
 cache: yarn
 deploy:
   provider: npm
@@ -10,4 +12,4 @@ deploy:
     secure: fwpRfekeedn3CnUp9xiMNnWHSsf7qFyykfNJUNhvLZ3O/StRVC9sKEkSBJWPCL49txXqsnxHZxf/uq/93ubTAF/l8ZGujdJWTy9ajsq4e0sQJJMGTmPv9k8u+37M/bbw18OSjAWXmM3/WnPWEQs72hVq5iVIMhBjQ5f8i8JWsGLI+i01yAzpSowqG9VCeVaElGY1JznxfwV9WQ38uV/c+Sm1khrIS6FCkLy4Or3To7hIDNzRlx5H6nt94RcJ8Bqgls9gBl81h5fOasnVOSLB9TVdwA/YRQ5MXrPubCJntyHJZTiWLEMZ+3pOLP6K6qgHjs7zi0aDTOu4DLXH+ACP52dk7LmqazjajiiaigUyWxAZOSDC6wM5aVEKGAFLDU5VIRkwLHBcG7r9m9J4i9LDgoU+fnFKOSn3TA10zpXV3uKbxRvyE/yPHoyparv1bKmefa1AUO9ieBcliwX1bWUpC0++C4FV1Q8HLpGodXlm1e12uNxr+M3EsQ9D1yMLAU5ClCwi6SPF/+XPCSiDxAjv94rbj3TdkdbwPKgu2wWlV2lvbdxSjFPFaExkTlGebtV/duhtlnBsSe14Twq2r4A3AZWE43iu7AmY7JjHbnquvFXTEKC8z/aZ5NQj0YeYT+Z08nfBY1IhTUOVwmxtLERFZrW/COf6orYq1beT3X4n8aI=
   on:
     tags: true
-    node: '12'
+    node: '14'

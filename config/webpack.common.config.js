@@ -49,14 +49,14 @@ var webpackConfig = {
     },
     module: {
         rules: [
-            { test: /\.html$/, loader: 'html-loader?interpolate' },
+            { test: /\.html$/, loader: 'html-loader', options: {interpolate: true} },
             { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
             { test: /\.json$/, loader: 'json-loader' },
-            { test: /\.woff2?(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
-            { test: /\.ttf(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
+            { test: /\.woff2?(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url-loader', options: {limit: 10000, mimetype: 'application/font-woff'} },
+            { test: /\.ttf(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url-loader', options: {limit: 10000, mimetype: 'application/octet-stream'} },
             { test: /\.eot(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'file-loader' },
-            { test: /\.svg(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
-            { test: /\.(jpe?g|png|gif)$/i, loaders: ['file-loader?hash=sha512&digest=hex&name=[hash].[ext]', 'image-webpack-loader?bypassOnDebug' ] }
+            { test: /\.svg(\?[.=&a-zA-Z0-9\-#]+)?$/, loader: 'url-loader', options: {limit: 10000, mimetype: 'image/svg+xml' }},
+            { test: /\.(jpe?g|png|gif)$/i, use: [{loader: 'file-loader', options: {hash: 'sha512',digest: 'hex',name: '[hash].[ext]'}}, {loader: 'image-webpack-loader', options: {bypassOnDebug: true}} ] }
         ]
     },
     plugins: [

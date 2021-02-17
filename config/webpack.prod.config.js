@@ -24,7 +24,7 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
                     {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: postcssConfig
+                            postcssOptions: postcssConfig
                         }
                     }
                 ]
@@ -41,7 +41,7 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
                     {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: postcssConfig
+                            postcssOptions: postcssConfig
                         }
                     },
                     {
@@ -61,7 +61,7 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
                     {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: postcssConfig
+                            postcssOptions: postcssConfig
                         }
                     },
                     {
@@ -81,7 +81,7 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
                     {
                         loader: 'postcss-loader',
                         options: {
-                            plugins: postcssConfig
+                            postcssOptions: postcssConfig
                         }
                     },
                     {
@@ -92,19 +92,18 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                query: babelConf.babelConfiguration
+                options: babelConf.babelConfiguration
             },
             {
                 test: /\.jsx$/,
                 loader: 'babel-loader',
-                query: babelConf.babelConfigurationReact
+                options: babelConf.babelConfigurationReact
             },
         ]
     },
     plugins: [
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
-            allChunks: true
         }),
         new webpack.DefinePlugin({
             'process.env': {
@@ -116,10 +115,11 @@ var webpackConfiguration = mergeWebpackConfig(require('./webpack.common.config')
                 safe: true
             }
         }),
-        new webpack.HashedModuleIdsPlugin(),
+        new webpack.ids.HashedModuleIdsPlugin(),
         new webpack.optimize.ModuleConcatenationPlugin()
     ],
     optimization: {
+        moduleIds: 'named',
         splitChunks: {
             cacheGroups: {
                 vendor: {

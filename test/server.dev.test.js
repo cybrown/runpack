@@ -263,7 +263,7 @@ describe ('server with dev files', function () {
         it ('should serve index.html', function () {
             return assertResource('/')
                 .then(function (body) {
-                    expect(body).match(/^<!DOCTYPE html>/);
+                    expect(body).match(/^<!doctype html>/);
                     expect(body).match(/<title>App with package\.json<\/title>/);
                     body.match(/bundle\.js/)[1];
                 });
@@ -308,7 +308,7 @@ describe ('server with dev files', function () {
         it ('should include a favicon', function () {
             return assertResource('/')
                 .then(body => {
-                    expect(body).to.match(/<link rel="shortcut icon" href="\/favicon\.png"><\/head>/);
+                    expect(body).to.match(/<link rel="icon" href="\/favicon\.png">/);
                 });
         });
     });
@@ -322,7 +322,7 @@ describe ('server with dev files', function () {
         it ('should include a favicon', function () {
             return assertResource('/')
                 .then(body => {
-                    expect(body).to.match(/<link rel="shortcut icon" href="\/favicon\.png"><\/head>/);
+                    expect(body).to.match(/<link rel="icon" href="\/favicon\.png">/);
                 });
         });
     });

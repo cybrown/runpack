@@ -32,13 +32,13 @@ function assertResourceInternal(options, statusCode) {
 
 function assertIndexHtmlBody(body) {
     expect(body).match(/^<!DOCTYPE html>/);
-    expect(body).match(/<script type="text\/javascript" src="\/bundle\.js"><\/script>/);
+    expect(body).match(/<script defer src="\/bundle\.js"><\/script>/);
 }
 
 function assertIndexHtmlBodyMinified(body) {
-    expect(body).match(/^<!DOCTYPE html>/);
+    expect(body).match(/^<!doctype html>/);
     expect(body).match(/<link href="\/bundle\.[a-f0-9]{20}\.css" rel="stylesheet">/);
-    expect(body).match(/<script type="text\/javascript" src="\/bundle\.[a-f0-9\-]{20}\.js"><\/script>/);
+    expect(body).match(/<script defer="defer" src="\/bundle\.[a-f0-9\-]{20}\.js"><\/script>/);
 }
 
 function assertBundleJsBody(body) {
@@ -103,7 +103,9 @@ function startServer(projectName, args, env) {
                 }
             });
             childWebpackServerProcess.stderr.on('data', function (data) {
-                console.error(data.toString('utf8'))
+                if (/\[webpack\.Progress\] 100%/.test(data.toString('utf-8'))) {
+                    resolve();
+                }
             });
             childWebpackServerProcess.stderr.on('close', function (data) {
                 reject(new Error('Process unexpectedly terminated'));

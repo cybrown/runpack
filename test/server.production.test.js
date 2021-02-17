@@ -86,7 +86,7 @@ describe ('server with production files', function () {
         it ('should serve index.html', function () {
             return assertResource('/')
                 .then(function (body) {
-                    expect(body).match(/^<!DOCTYPE html>/);
+                    expect(body).match(/^<!doctype html>/);
                     cssHash = body.match(/bundle\.([a-f0-9]{20})\.css/)[1];
                 });
         });
